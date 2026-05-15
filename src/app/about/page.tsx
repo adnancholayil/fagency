@@ -25,12 +25,12 @@ export default function AboutPage() {
       <Navbar />
       
       {/* Hero Section for About */}
-      <section className="pt-40 pb-20 px-6 bg-[#080808]">
-        <div className="max-w-6xl mx-auto text-center">
-          <h1 className="text-4xl md:text-6xl font-black text-white tracking-tighter mb-8">
+      <section className="pt-32 pb-16 px-6 bg-[#050505] flex flex-col items-center justify-center min-h-[50vh]">
+        <div className="max-w-[1000px] mx-auto text-center flex flex-col items-center w-full">
+          <h1 className="text-5xl md:text-7xl lg:text-[90px] font-bold leading-[1.1] tracking-tight text-white mb-8">
             WHO <span className="text-[#FFC107]">WE ARE.</span>
           </h1>
-          <p className="text-white/40 text-lg md:text-xl max-w-3xl mx-auto leading-relaxed">
+          <p className="text-white/60 text-base md:text-lg max-w-2xl leading-relaxed">
             Fagency is a collective of specialized freelancers with over 1 year of experience in delivering high-impact digital solutions. We bridge the gap between complex technology and human-centered design.
           </p>
         </div>

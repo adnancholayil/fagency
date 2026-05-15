@@ -14,22 +14,22 @@ export default function Hero() {
     const tl = gsap.timeline();
     tl.fromTo(".hero-glow",
       { scale: 0.8, opacity: 0 },
-      { scale: 1, opacity: 0.6, duration: 2, ease: "power2.out" }
+      { scale: 1, opacity: 0.6, duration: 1.2, ease: "power2.out" }
     )
       .fromTo(".hero-line",
         { y: 100 },
-        { y: 0, duration: 1.2, stagger: 0.15, ease: "power4.out" },
-        "-=1.5"
+        { y: 0, duration: 0.8, stagger: 0.1, ease: "power4.out" },
+        "-=1.0"
       )
       .fromTo(".hero-subtext",
         { y: 20, opacity: 0 },
-        { y: 0, opacity: 1, duration: 1, ease: "power3.out" },
-        "-=0.8"
+        { y: 0, opacity: 1, duration: 0.6, ease: "power3.out" },
+        "-=0.4"
       )
       .fromTo(".hero-cta",
         { y: 20, opacity: 0 },
-        { y: 0, opacity: 1, duration: 1, ease: "power3.out" },
-        "-=0.8"
+        { y: 0, opacity: 1, duration: 0.6, ease: "power3.out" },
+        "-=0.4"
       );
 
     // Floating background nodes and icons animation

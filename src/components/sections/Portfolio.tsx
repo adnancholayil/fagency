@@ -58,12 +58,12 @@ export default function Portfolio() {
       {
         y: 0,
         opacity: 1,
-        duration: 0.8,
-        stagger: 0.1,
+        duration: 0.5,
+        stagger: 0.05,
         ease: "power3.out",
         scrollTrigger: {
           trigger: ".impact-header",
-          start: "top 85%",
+          start: "top 90%",
         }
       }
     );
@@ -73,12 +73,12 @@ export default function Portfolio() {
       {
         y: 0,
         opacity: 1,
-        duration: 0.8,
-        stagger: 0.1,
+        duration: 0.5,
+        stagger: 0.05,
         ease: "power3.out",
         scrollTrigger: {
           trigger: ".impact-grid",
-          start: "top 80%",
+          start: "top 90%",
         }
       }
     );
@@ -88,12 +88,12 @@ export default function Portfolio() {
       {
         y: 0,
         opacity: 1,
-        duration: 0.8,
-        stagger: 0.1,
+        duration: 0.5,
+        stagger: 0.05,
         ease: "power3.out",
         scrollTrigger: {
           trigger: ".testimonials-grid",
-          start: "top 80%",
+          start: "top 90%",
         }
       }
     );

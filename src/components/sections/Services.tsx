@@ -55,12 +55,12 @@ export default function Services() {
       { y: 60 },
       {
         y: 0,
-        duration: 1,
-        stagger: 0.1,
-        ease: "power4.out",
+        duration: 0.6,
+        stagger: 0.05,
+        ease: "power3.out",
         scrollTrigger: {
           trigger: ".service-header",
-          start: "top 85%",
+          start: "top 90%",
         }
       }
     );
@@ -70,12 +70,12 @@ export default function Services() {
       {
         y: 0,
         opacity: 1,
-        duration: 0.8,
-        stagger: 0.1,
+        duration: 0.5,
+        stagger: 0.05,
         ease: "power3.out",
         scrollTrigger: {
           trigger: ".service-grid",
-          start: "top 80%",
+          start: "top 90%",
         }
       }
     );

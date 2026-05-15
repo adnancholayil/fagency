@@ -17,11 +17,11 @@ export default function Contact() {
       {
         y: 0,
         opacity: 1,
-        duration: 1,
+        duration: 0.5,
         ease: "power3.out",
         scrollTrigger: {
           trigger: ".contact-header",
-          start: "top 85%",
+          start: "top 90%",
         }
       }
     );
@@ -31,11 +31,11 @@ export default function Contact() {
       {
         y: 0,
         opacity: 1,
-        duration: 1.2,
-        ease: "power4.out",
+        duration: 0.6,
+        ease: "power3.out",
         scrollTrigger: {
           trigger: ".contact-form",
-          start: "top 80%",
+          start: "top 90%",
         }
       }
     );
