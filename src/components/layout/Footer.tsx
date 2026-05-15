@@ -21,16 +21,16 @@ interface FooterProps {
 
 const defaultFaqs: FAQ[] = [
   {
-    q: "What kind of businesses do you work with?",
-    a: "We collaborate with startups, SMBs, and enterprises across finance, technology, e-commerce, and healthcare sectors. Whether you're building an MVP or scaling up, we're ready."
+    q: "What kind of projects do you specialize in?",
+    a: "We specialize in working with creative brands, startups, and local businesses. Our core expertise lies in high-performance web apps, custom software for small business operations, and premium visual storytelling."
   },
   {
     q: "How long does a typical project take?",
-    a: "Project timelines vary based on complexity, but a typical MVP takes 4-8 weeks, while full enterprise solutions can take 3-6 months."
+    a: "Timeline depends on the scope. A custom website or branding identity usually takes 2-4 weeks, while more complex app or software development typically takes 6-12 weeks."
   },
   {
-    q: "Do you offer post-launch support?",
-    a: "Yes, we provide 24/7 support and maintenance plans to ensure your software remains secure, updated, and perfectly functional."
+    q: "Do you offer ongoing support after launch?",
+    a: "Absolutely. We provide dedicated support and maintenance to ensure your digital assets continue to perform at their best as your business grows."
   }
 ];
 
@@ -136,23 +136,23 @@ export default function Footer({ customFaqs }: FooterProps) {
             <div className="grid grid-cols-2 gap-12">
               <div className="space-y-6">
                 <h5 className="text-[#FFC107] text-xs font-bold uppercase tracking-[0.3em]">Contact</h5>
-                <div className="space-y-4 text-white/60 text-sm">
+                <div className="space-y-4 text-white/60 text-sm font-medium">
                   <a href="mailto:fagency.it@gmail.com" className="flex items-center gap-3 hover:text-white transition-colors"><Mail size={16} /> fagency.it@gmail.com</a>
                   <a href="tel:+917034887478" className="flex items-center gap-3 hover:text-white transition-colors"><Phone size={16} /> +91 7034 887 478</a>
                 </div>
               </div>
               <div className="space-y-6">
                 <h5 className="text-[#FFC107] text-xs font-bold uppercase tracking-[0.3em]">Location</h5>
-                <div className="space-y-4 text-white/60 text-sm flex items-start gap-3">
+                <div className="space-y-4 text-white/60 text-sm flex items-start gap-3 font-medium">
                   <MapPin size={16} className="mt-1 shrink-0" />
-                  <p>Cyberpark, Kozhikode<br />Kerala, India</p>
+                  <p>Remote / Worldwide<br />Based in India</p>
                 </div>
               </div>
             </div>
 
             <div className="flex gap-6">
               {[
-                { icon: Instagram, href: "https://instagram.com/fagency_" },
+                { icon: Instagram, href: "https://instagram.com/fegency_" },
                 { icon: Facebook, href: "https://facebook.com/fagency" }
               ].map((social, i) => (
                 <a key={i} href={social.href} target="_blank" rel="noopener noreferrer" className="w-12 h-12 rounded-full border border-white/10 flex items-center justify-center text-white/40 hover:bg-[#FFC107] hover:border-[#FFC107] hover:text-black transition-all duration-500 hover:-translate-y-2">
@@ -177,8 +177,8 @@ export default function Footer({ customFaqs }: FooterProps) {
           </Link>
 
           <div className="flex gap-12 text-[10px] uppercase tracking-[0.2em] font-medium text-white/30">
-            <Link href="#" className="hover:text-[#FFC107] transition-colors">Privacy Policy</Link>
-            <Link href="#" className="hover:text-[#FFC107] transition-colors">Terms of Service</Link>
+            <Link href="/privacy" className="hover:text-[#FFC107] transition-colors">Privacy Policy</Link>
+            <Link href="/terms" className="hover:text-[#FFC107] transition-colors">Terms of Service</Link>
             <Link href="#" className="hover:text-[#FFC107] transition-colors">© 2024 FAGENCY</Link>
           </div>
         </div>
