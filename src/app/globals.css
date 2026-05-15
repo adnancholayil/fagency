@@ -26,7 +26,7 @@ h1, h2, h3, h4, h5, h6, p, span, a, button, input, textarea, select {
   font-family: var(--font-montserrat), sans-serif;
 }
 
-/* Noise Texture Overlay */
+/* Noise Texture Overlay - Optimized */
 body::before {
   content: "";
   position: fixed;
@@ -34,10 +34,11 @@ body::before {
   left: 0;
   width: 100%;
   height: 100%;
-  background-image: url("https://grainy-gradients.vercel.app/noise.svg");
-  opacity: 0.05;
+  background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyBAMAAADsEZWCAAAAGFBMVEUAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAl66vvAAAABnRSTlMAAAAAAABupgeRAAAANklEQVQ4y2NgQAX8DIyMTIwMDEwMDEwMDEwMDEwMDEwMDEwMDEwMDEwMDEwMDEwMDEwMDEwMDBQYAL8AA/wH+yZMAAAAASUVORK5CYII=");
+  opacity: 0.03;
   pointer-events: none;
   z-index: 9999;
+  will-change: transform;
 }
 
 ::selection {

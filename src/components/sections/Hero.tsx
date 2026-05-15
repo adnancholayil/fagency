@@ -12,15 +12,10 @@ export default function Hero() {
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
-      if (spotlightRef.current) {
-        const { clientX, clientY } = e;
-        gsap.to(spotlightRef.current, {
-          x: clientX,
-          y: clientY,
-          duration: 1,
-          ease: "power2.out"
-        });
-      }
+      const x = e.clientX;
+      const y = e.clientY;
+      document.documentElement.style.setProperty('--mouse-x', `${x}px`);
+      document.documentElement.style.setProperty('--mouse-y', `${y}px`);
     };
     window.addEventListener("mousemove", handleMouseMove);
     return () => window.removeEventListener("mousemove", handleMouseMove);
@@ -105,21 +100,23 @@ export default function Hero() {
 
       {/* Mouse Spotlight */}
       <div 
-        ref={spotlightRef}
-        className="fixed top-0 left-0 w-[800px] h-[800px] -translate-x-1/2 -translate-y-1/2 bg-[#6200ea] opacity-[0.12] blur-[150px] pointer-events-none rounded-full z-0"
+        className="fixed top-0 left-0 w-[800px] h-[800px] bg-[#6200ea] opacity-[0.1] blur-[150px] pointer-events-none rounded-full z-0 will-change-transform transition-transform duration-300 ease-out"
+        style={{ 
+          transform: `translate(calc(var(--mouse-x, 50vw) - 50%), calc(var(--mouse-y, 50vh) - 50%))` 
+        }}
       />
 
       {/* Background Floating Elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none -z-10">
-        <div className="bg-node absolute top-[15%] left-[10%] text-[#6200ea]/30"><Cpu size={40} /></div>
-        <div className="bg-node absolute top-[55%] left-[20%] text-[#6200ea]/20"><Globe size={32} /></div>
-        <div className="bg-node absolute top-[35%] right-[15%] text-[#6200ea]/30"><Shield size={48} /></div>
-        <div className="bg-node absolute bottom-[25%] right-[25%] text-[#6200ea]/20"><Zap size={36} /></div>
+        <div className="bg-node absolute top-[15%] left-[10%] text-[#6200ea]/30 will-change-transform"><Cpu size={40} /></div>
+        <div className="bg-node absolute top-[55%] left-[20%] text-[#6200ea]/20 will-change-transform"><Globe size={32} /></div>
+        <div className="bg-node absolute top-[35%] right-[15%] text-[#6200ea]/30 will-change-transform"><Shield size={48} /></div>
+        <div className="bg-node absolute bottom-[25%] right-[25%] text-[#6200ea]/20 will-change-transform"><Zap size={36} /></div>
         
-        <div className="bg-node absolute top-[25%] left-[18%] w-4 h-4 bg-[#6200ea] rounded-full blur-[6px]" />
-        <div className="bg-node absolute top-[65%] left-[28%] w-3 h-3 bg-[#6200ea] rounded-full blur-[4px]" />
-        <div className="bg-node absolute top-[45%] right-[22%] w-5 h-5 bg-[#6200ea] rounded-full blur-[8px]" />
-        <div className="bg-node absolute bottom-[35%] right-[32%] w-3 h-3 bg-[#6200ea] rounded-full blur-[4px]" />
+        <div className="bg-node absolute top-[25%] left-[18%] w-4 h-4 bg-[#6200ea] rounded-full blur-[6px] will-change-transform" />
+        <div className="bg-node absolute top-[65%] left-[28%] w-3 h-3 bg-[#6200ea] rounded-full blur-[4px] will-change-transform" />
+        <div className="bg-node absolute top-[45%] right-[22%] w-5 h-5 bg-[#6200ea] rounded-full blur-[8px] will-change-transform" />
+        <div className="bg-node absolute bottom-[35%] right-[32%] w-3 h-3 bg-[#6200ea] rounded-full blur-[4px] will-change-transform" />
       </div>
 
       {/* Rotating Light Beams */}

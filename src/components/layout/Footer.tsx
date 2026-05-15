@@ -9,7 +9,16 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
 
-const faqs = [
+interface FAQ {
+  q: string;
+  a: string;
+}
+
+interface FooterProps {
+  customFaqs?: FAQ[];
+}
+
+const defaultFaqs: FAQ[] = [
   {
     q: "What kind of businesses do you work with?",
     a: "We collaborate with startups, SMBs, and enterprises across finance, technology, e-commerce, and healthcare sectors. Whether you're building an MVP or scaling up, we're ready."
@@ -24,9 +33,10 @@ const faqs = [
   }
 ];
 
-export default function Footer() {
+export default function Footer({ customFaqs }: FooterProps) {
   const [openFaq, setOpenFaq] = useState<number | null>(0);
   const container = useRef<HTMLElement>(null);
+  const currentFaqs = customFaqs || defaultFaqs;
 
   useGSAP(() => {
     gsap.fromTo(".footer-line", 
@@ -74,7 +84,7 @@ export default function Footer() {
         </div>
 
         <div className="faq-list space-y-4">
-          {faqs.map((faq, i) => (
+          {currentFaqs.map((faq, i) => (
             <div 
               key={i} 
               className="faq-item border-b border-white/[0.05] pb-4 cursor-pointer group"

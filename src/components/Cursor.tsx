@@ -12,19 +12,12 @@ export default function Cursor() {
     const follower = followerRef.current;
 
     const onMouseMove = (e: MouseEvent) => {
-      const { clientX, clientY } = e;
-      
-      gsap.to(cursor, {
-        x: clientX,
-        y: clientY,
-        duration: 0.1,
-      });
-      
-      gsap.to(follower, {
-        x: clientX,
-        y: clientY,
-        duration: 0.3,
-      });
+      // Use CSS variables set in Hero.tsx or globally for performance
+      // If Hero isn't mounted, we still want the cursor to work, so we set them here too
+      const x = e.clientX;
+      const y = e.clientY;
+      document.documentElement.style.setProperty('--mouse-x', `${x}px`);
+      document.documentElement.style.setProperty('--mouse-y', `${y}px`);
     };
 
     const onMouseDown = () => {
@@ -78,13 +71,17 @@ export default function Cursor() {
     <>
       <div
         ref={cursorRef}
-        className="fixed top-0 left-0 w-1.5 h-1.5 bg-[#6200ea] rounded-full pointer-events-none z-[9999] mix-blend-difference"
-        style={{ transform: "translate(-50%, -50%)" }}
+        className="fixed top-0 left-0 w-1.5 h-1.5 bg-[#6200ea] rounded-full pointer-events-none z-[9999] mix-blend-difference will-change-transform"
+        style={{ 
+          transform: "translate(calc(var(--mouse-x, -100px) - 50%), calc(var(--mouse-y, -100px) - 50%))" 
+        }}
       />
       <div
         ref={followerRef}
-        className="fixed top-0 left-0 w-8 h-8 border border-[#6200ea]/40 rounded-full pointer-events-none z-[9999] -translate-x-1/2 -translate-y-1/2 transition-transform duration-75 ease-out"
-        style={{ transform: "translate(-50%, -50%)" }}
+        className="fixed top-0 left-0 w-8 h-8 border border-[#6200ea]/40 rounded-full pointer-events-none z-[9999] will-change-transform transition-transform duration-150 ease-out"
+        style={{ 
+          transform: "translate(calc(var(--mouse-x, -100px) - 50%), calc(var(--mouse-y, -100px) - 50%))" 
+        }}
       />
     </>
   );
