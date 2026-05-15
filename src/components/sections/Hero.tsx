@@ -61,6 +61,7 @@ export default function Hero() {
     <section ref={container} className="relative min-h-screen pt-28 pb-0 overflow-hidden flex flex-col items-center justify-center bg-[#050505]">
       {/* Hyperspeed Background Component */}
       <div className="absolute inset-0 z-0">
+        {/* @ts-ignore */}
         <Hyperspeed
           effectOptions={{
             onSpeedUp: () => {},
