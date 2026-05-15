@@ -42,7 +42,7 @@ body::before {
 }
 
 ::selection {
-  background: rgba(98, 0, 234, 0.4);
+  background: rgba(255, 193, 7, 0.4);
   color: white;
 }
 
@@ -60,5 +60,5 @@ body::before {
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #6200ea;
+  background: #FFC107;
 }

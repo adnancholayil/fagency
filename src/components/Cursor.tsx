@@ -10,14 +10,17 @@ export default function Cursor() {
   useEffect(() => {
     const cursor = cursorRef.current;
     const follower = followerRef.current;
+    if (!cursor || !follower) return;
 
     const onMouseMove = (e: MouseEvent) => {
-      // Use CSS variables set in Hero.tsx or globally for performance
-      // If Hero isn't mounted, we still want the cursor to work, so we set them here too
       const x = e.clientX;
       const y = e.clientY;
       document.documentElement.style.setProperty('--mouse-x', `${x}px`);
       document.documentElement.style.setProperty('--mouse-y', `${y}px`);
+      
+      // Direct GSAP update for smoother movement and better reliability across pages
+      gsap.to(cursor, { x, y, duration: 0, ease: "none" });
+      gsap.to(follower, { x, y, duration: 0.15, ease: "power2.out" });
     };
 
     const onMouseDown = () => {
@@ -28,42 +31,43 @@ export default function Cursor() {
       gsap.to([cursor, follower], { scale: 1, duration: 0.2 });
     };
 
-    const onMouseEnterLink = () => {
-      gsap.to(follower, {
-        scale: 3,
-        backgroundColor: "rgba(98, 0, 234, 0.2)",
-        borderWidth: 0,
-        duration: 0.3,
-      });
+    // Use event delegation for hover effects to handle dynamic content/page changes
+    const onMouseOver = (e: MouseEvent) => {
+      const target = e.target as HTMLElement;
+      if (target.closest("a, button, [role='button']")) {
+        gsap.to(follower, {
+          scale: 3,
+          backgroundColor: "rgba(255, 193, 7, 0.2)",
+          borderWidth: 0,
+          duration: 0.3,
+        });
+      }
     };
 
-    const onMouseLeaveLink = () => {
-      gsap.to(follower, {
-        scale: 1,
-        backgroundColor: "transparent",
-        borderWidth: 1,
-        duration: 0.3,
-      });
+    const onMouseOut = (e: MouseEvent) => {
+      const target = e.target as HTMLElement;
+      if (target.closest("a, button, [role='button']")) {
+        gsap.to(follower, {
+          scale: 1,
+          backgroundColor: "transparent",
+          borderWidth: 1,
+          duration: 0.3,
+        });
+      }
     };
 
     window.addEventListener("mousemove", onMouseMove);
     window.addEventListener("mousedown", onMouseDown);
     window.addEventListener("mouseup", onMouseUp);
-
-    const links = document.querySelectorAll("a, button");
-    links.forEach((link) => {
-      link.addEventListener("mouseenter", onMouseEnterLink);
-      link.addEventListener("mouseleave", onMouseLeaveLink);
-    });
+    document.addEventListener("mouseover", onMouseOver);
+    document.addEventListener("mouseout", onMouseOut);
 
     return () => {
       window.removeEventListener("mousemove", onMouseMove);
       window.removeEventListener("mousedown", onMouseDown);
       window.removeEventListener("mouseup", onMouseUp);
-      links.forEach((link) => {
-        link.removeEventListener("mouseenter", onMouseEnterLink);
-        link.removeEventListener("mouseleave", onMouseLeaveLink);
-      });
+      document.removeEventListener("mouseover", onMouseOver);
+      document.removeEventListener("mouseout", onMouseOut);
     };
   }, []);
 
@@ -71,17 +75,13 @@ export default function Cursor() {
     <>
       <div
         ref={cursorRef}
-        className="fixed top-0 left-0 w-1.5 h-1.5 bg-[#6200ea] rounded-full pointer-events-none z-[9999] mix-blend-difference will-change-transform"
-        style={{ 
-          transform: "translate(calc(var(--mouse-x, -100px) - 50%), calc(var(--mouse-y, -100px) - 50%))" 
-        }}
+        className="fixed top-0 left-0 w-1.5 h-1.5 bg-[#FFC107] rounded-full pointer-events-none z-[9999] mix-blend-difference will-change-transform"
+        style={{ transform: "translate(-50%, -50%)" }}
       />
       <div
         ref={followerRef}
-        className="fixed top-0 left-0 w-8 h-8 border border-[#6200ea]/40 rounded-full pointer-events-none z-[9999] will-change-transform transition-transform duration-150 ease-out"
-        style={{ 
-          transform: "translate(calc(var(--mouse-x, -100px) - 50%), calc(var(--mouse-y, -100px) - 50%))" 
-        }}
+        className="fixed top-0 left-0 w-8 h-8 border border-[#FFC107]/40 rounded-full pointer-events-none z-[9999] will-change-transform"
+        style={{ transform: "translate(-50%, -50%)" }}
       />
     </>
   );

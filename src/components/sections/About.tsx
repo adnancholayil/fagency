@@ -63,16 +63,16 @@ export default function About() {
   }, { scope: container });
 
   return (
-    <section ref={container} id="about" className="py-24 px-6 bg-[#2e098d] relative overflow-hidden">
-      {/* Background Gradients */}
-      <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-b from-[#1c0559] to-[#2e098d] opacity-50" />
+    <section ref={container} id="about" className="pt-12 pb-24 px-6 bg-gradient-to-b from-[#FFD700] to-[#FFB300] relative overflow-hidden">
+      {/* Background Gradients Overlay - Reduced to let the main gradient shine */}
+      <div className="absolute top-0 left-0 w-full h-full bg-white/10 opacity-20" />
       
       <div className="max-w-6xl mx-auto relative z-10">
         <div className="trust-header text-center mb-16 space-y-4">
-          <h2 className="text-3xl md:text-4xl font-bold text-white tracking-tight">
+          <h2 className="text-3xl md:text-4xl font-bold text-black tracking-tight">
             Built on Trust. Driven by Results.
           </h2>
-          <p className="text-white/70 text-sm md:text-base max-w-2xl mx-auto">
+          <p className="text-black/70 text-sm md:text-base max-w-2xl mx-auto font-medium">
             We don't just build software we build relationships. Our clients trust us to deliver tech that works.
           </p>
         </div>
@@ -81,19 +81,19 @@ export default function About() {
           {trustItems.map((item, i) => (
             <div
               key={i}
-              className="trust-card group cursor-pointer p-8 rounded-2xl border border-white/20 bg-white/5 hover:bg-white/10 transition-all duration-300 flex flex-col min-h-[220px]"
+              className="trust-card group cursor-pointer p-8 rounded-2xl border border-black/10 bg-black/5 hover:bg-black/10 transition-all duration-300 flex flex-col min-h-[220px]"
             >
               <div className="flex justify-end mb-4">
-                <div className="w-8 h-8 rounded-full border border-white/20 flex items-center justify-center text-white transition-transform duration-300 group-hover:rotate-45">
+                <div className="w-8 h-8 rounded-full border border-black/20 flex items-center justify-center text-black transition-transform duration-300 group-hover:rotate-45">
                   <ArrowUpRight size={14} />
                 </div>
               </div>
               
               <div className="mt-auto">
-                <div className="text-5xl font-bold text-white mb-4">
+                <div className="text-5xl font-bold text-black mb-4">
                   {item.num}
                 </div>
-                <h3 className="text-xl font-bold text-white leading-tight">
+                <h3 className="text-xl font-bold text-black leading-tight">
                   {item.title}
                 </h3>
               </div>

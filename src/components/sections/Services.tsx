@@ -90,7 +90,7 @@ export default function Services() {
               <span className="service-line block">Innovating Tomorrow.</span>
             </div>
             <div className="overflow-hidden">
-              <span className="service-line block text-[#6200ea]">Building Today.</span>
+              <span className="service-line block text-[#FFC107]">Building Today.</span>
             </div>
           </h2>
           <p className="text-white/50 text-sm md:text-base max-w-2xl mx-auto">
@@ -102,17 +102,17 @@ export default function Services() {
           {services.map((s, i) => (
             <div
               key={i}
-              className={`service-card group cursor-pointer relative p-8 rounded-xl border border-white/[0.08] bg-white/[0.02] transition-all duration-500 hover:bg-white/[0.04] hover:border-[#6200ea]/40 flex flex-col justify-between min-h-[300px] ${
-                s.highlight ? "shadow-[0_0_40px_rgba(98,0,234,0.1)] border-[#6200ea]/20" : ""
+              className={`service-card group cursor-pointer relative p-8 rounded-xl border border-white/[0.08] bg-white/[0.02] transition-all duration-500 hover:bg-white/[0.04] hover:border-[#FFC107]/40 flex flex-col justify-between min-h-[300px] ${
+                s.highlight ? "shadow-[0_0_40px_rgba(255, 193, 7,0.1)] border-[#FFC107]/20" : ""
               }`}
             >
-              <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-[#6200ea]/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-[#FFC107]/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
               
               <div className="flex justify-between items-start mb-12">
-                <div className="w-12 h-12 rounded-lg flex items-center justify-center border border-white/10 bg-white/[0.03] text-[#6200ea] group-hover:scale-110 transition-transform duration-500">
+                <div className="w-12 h-12 rounded-lg flex items-center justify-center border border-white/10 bg-white/[0.03] text-[#FFC107] group-hover:scale-110 transition-transform duration-500">
                   <s.icon size={22} />
                 </div>
-                <div className="w-10 h-10 rounded-full border border-white/5 flex items-center justify-center transition-all duration-500 group-hover:bg-[#6200ea] group-hover:border-[#6200ea] group-hover:text-white">
+                <div className="w-10 h-10 rounded-full border border-white/5 flex items-center justify-center transition-all duration-500 group-hover:bg-[#FFC107] group-hover:border-[#FFC107] group-hover:text-black">
                   <ArrowUpRight size={16} />
                 </div>
               </div>

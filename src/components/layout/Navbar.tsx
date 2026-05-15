@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
-import Image from "next/image";
+import { usePathname } from "next/navigation";
 import { Menu, X } from "lucide-react";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
@@ -19,6 +19,7 @@ export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const headerRef = useRef<HTMLElement>(null);
+  const pathname = usePathname();
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 20);
@@ -60,28 +61,35 @@ export default function Navbar() {
           {/* Logo */}
           <Link href="/" className="nav-logo flex items-center z-50 group">
             <div className="text-xl font-black tracking-tighter text-white flex items-center">
-              FAGENCY<span className="text-[#6200ea] group-hover:animate-pulse">.</span>
+              FAGENCY<span className="text-[#FFC107] group-hover:animate-pulse">.</span>
             </div>
           </Link>
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center gap-10">
-            {navLinks.map((link) => (
-              <Link
-                key={link.name}
-                href={link.href}
-                className="nav-item relative text-[11px] uppercase tracking-[0.2em] font-bold text-white/50 hover:text-white transition-all duration-300 group"
-              >
-                {link.name}
-                <span className="absolute -bottom-1 left-0 w-0 h-[2px] bg-[#6200ea] transition-all duration-300 group-hover:w-full" />
-              </Link>
-            ))}
+            {navLinks.map((link) => {
+              const isActive = pathname === link.href;
+              return (
+                <Link
+                  key={link.name}
+                  href={link.href}
+                  className={`nav-item relative text-[11px] uppercase tracking-[0.2em] font-bold transition-all duration-300 group ${
+                    isActive ? "text-white" : "text-white/50 hover:text-white"
+                  }`}
+                >
+                  {link.name}
+                  <span className={`absolute -bottom-1 left-0 h-[2px] bg-[#FFC107] transition-all duration-300 group-hover:w-full ${
+                    isActive ? "w-full" : "w-0"
+                  }`} />
+                </Link>
+              );
+            })}
           </div>
 
           <div className="hidden md:flex items-center gap-4">
             <Link
-              href="#contact"
-              className="nav-button px-6 py-2.5 bg-white text-black rounded-full text-[11px] uppercase tracking-wider font-black transition-all hover:bg-[#6200ea] hover:text-white shadow-[0_0_20px_rgba(255,255,255,0.1)] active:scale-95"
+              href="/contact"
+              className="nav-button px-6 py-2.5 bg-white text-black rounded-full text-[11px] uppercase tracking-wider font-black transition-all hover:bg-[#FFC107] hover:text-black shadow-[0_0_20px_rgba(255,255,255,0.1)] active:scale-95"
             >
               Get Started
             </Link>
@@ -104,20 +112,25 @@ export default function Navbar() {
         }`}
       >
         <div className="flex flex-col items-center gap-10">
-          {navLinks.map((link, i) => (
-            <Link
-              key={link.name}
-              href={link.href}
-              className={`text-4xl font-black text-white hover:text-[#6200ea] transition-all duration-300 transform ${mobileMenuOpen ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}
-              style={{ transitionDelay: `${i * 100}ms` }}
-              onClick={() => setMobileMenuOpen(false)}
-            >
-              {link.name}
-            </Link>
-          ))}
+          {navLinks.map((link, i) => {
+            const isActive = pathname === link.href;
+            return (
+              <Link
+                key={link.name}
+                href={link.href}
+                className={`text-4xl font-black transition-all duration-300 transform ${
+                  isActive ? "text-[#FFC107]" : "text-white hover:text-[#FFC107]"
+                } ${mobileMenuOpen ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}
+                style={{ transitionDelay: `${i * 100}ms` }}
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                {link.name}
+              </Link>
+            );
+          })}
           <Link
-            href="#contact"
-            className="mt-10 px-10 py-4 bg-[#6200ea] text-white rounded-full text-lg font-bold shadow-[0_0_30px_rgba(98,0,234,0.5)]"
+            href="/contact"
+            className="mt-10 px-10 py-4 bg-[#FFC107] text-black rounded-full text-lg font-bold shadow-[0_0_30px_rgba(255, 193, 7,0.5)]"
             onClick={() => setMobileMenuOpen(false)}
           >
             Start Project

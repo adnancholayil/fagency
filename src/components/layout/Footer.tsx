@@ -76,7 +76,7 @@ export default function Footer({ customFaqs }: FooterProps) {
       <div className="max-w-4xl mx-auto py-32 px-6 w-full border-b border-white/[0.05]">
         <div className="faq-header text-center mb-16">
           <h2 className="text-3xl md:text-5xl font-black text-white tracking-tighter mb-4">
-            FREQUENTLY <span className="text-[#6200ea]">ASKED.</span>
+            FREQUENTLY <span className="text-[#FFC107]">ASKED.</span>
           </h2>
           <p className="text-white/40 text-sm tracking-widest uppercase font-bold">
             Answers to common digital project queries
@@ -91,10 +91,10 @@ export default function Footer({ customFaqs }: FooterProps) {
               onClick={() => setOpenFaq(openFaq === i ? null : i)}
             >
               <div className="flex justify-between items-center py-6">
-                <h4 className={`text-base md:text-lg font-bold tracking-tight transition-all duration-300 ${openFaq === i ? "text-[#6200ea] pl-4" : "text-white/60 group-hover:text-white"}`}>
+                <h4 className={`text-base md:text-lg font-bold tracking-tight transition-all duration-300 ${openFaq === i ? "text-[#FFC107] pl-4" : "text-white/60 group-hover:text-white"}`}>
                   {faq.q}
                 </h4>
-                <div className={`w-8 h-8 rounded-full border flex items-center justify-center transition-all duration-500 ${openFaq === i ? "bg-[#6200ea] border-[#6200ea] text-white rotate-180 shadow-[0_0_20px_rgba(98,0,234,0.5)]" : "border-white/10 text-white/40 group-hover:border-white/30"}`}>
+                <div className={`w-8 h-8 rounded-full border flex items-center justify-center transition-all duration-500 ${openFaq === i ? "bg-[#FFC107] border-[#FFC107] text-black rotate-180 shadow-[0_0_20px_rgba(255, 193, 7,0.5)]" : "border-white/10 text-white/40 group-hover:border-white/30"}`}>
                   <ChevronDown size={16} />
                 </div>
               </div>
@@ -121,27 +121,27 @@ export default function Footer({ customFaqs }: FooterProps) {
           <div className="flex flex-col justify-center space-y-10">
             <h2 className="text-5xl md:text-7xl lg:text-[100px] font-black text-white leading-[0.9] tracking-tighter">
               <div className="overflow-hidden"><span className="footer-line block">LET&apos;S WORK</span></div>
-              <div className="overflow-hidden"><span className="footer-line block text-[#6200ea]">TOGETHER.</span></div>
+              <div className="overflow-hidden"><span className="footer-line block text-[#FFC107]">TOGETHER.</span></div>
             </h2>
             <Link 
               href="#contact" 
               className="footer-line inline-flex items-center gap-4 text-xl md:text-2xl font-bold text-white group"
             >
-              Start a project <span className="w-12 h-12 rounded-full bg-[#6200ea] flex items-center justify-center group-hover:translate-x-4 transition-transform duration-300"><ChevronDown size={24} className="-rotate-90" /></span>
+              Start a project <span className="w-12 h-12 rounded-full bg-[#FFC107] flex items-center justify-center group-hover:translate-x-4 transition-transform duration-300"><ChevronDown size={24} className="-rotate-90" /></span>
             </Link>
           </div>
 
           <div className="flex flex-col justify-center space-y-16">
             <div className="grid grid-cols-2 gap-12">
               <div className="space-y-6">
-                <h5 className="text-[#6200ea] text-xs font-black uppercase tracking-[0.3em]">Contact</h5>
+                <h5 className="text-[#FFC107] text-xs font-black uppercase tracking-[0.3em]">Contact</h5>
                 <div className="space-y-4 text-white/60 text-sm">
                   <a href="mailto:fagency.it@gmail.com" className="flex items-center gap-3 hover:text-white transition-colors"><Mail size={16} /> fagency.it@gmail.com</a>
                   <a href="tel:+919876543210" className="flex items-center gap-3 hover:text-white transition-colors"><Phone size={16} /> +91 9876 543 210</a>
                 </div>
               </div>
               <div className="space-y-6">
-                <h5 className="text-[#6200ea] text-xs font-black uppercase tracking-[0.3em]">Location</h5>
+                <h5 className="text-[#FFC107] text-xs font-black uppercase tracking-[0.3em]">Location</h5>
                 <p className="text-white/60 text-sm leading-relaxed flex items-start gap-3">
                   <MapPin size={16} className="mt-1 flex-shrink-0" />
                   Malappuram, Kerala<br />India
@@ -154,7 +154,7 @@ export default function Footer({ customFaqs }: FooterProps) {
                 { icon: Instagram, href: "https://instagram.com/fagency_" },
                 { icon: Facebook, href: "https://facebook.com/fagency" }
               ].map((social, i) => (
-                <a key={i} href={social.href} target="_blank" rel="noopener noreferrer" className="w-12 h-12 rounded-full border border-white/10 flex items-center justify-center text-white/40 hover:bg-[#6200ea] hover:border-[#6200ea] hover:text-white transition-all duration-500 hover:-translate-y-2">
+                <a key={i} href={social.href} target="_blank" rel="noopener noreferrer" className="w-12 h-12 rounded-full border border-white/10 flex items-center justify-center text-white/40 hover:bg-[#FFC107] hover:border-[#FFC107] hover:text-black transition-all duration-500 hover:-translate-y-2">
                   <social.icon size={20} />
                 </a>
               ))}
@@ -166,14 +166,14 @@ export default function Footer({ customFaqs }: FooterProps) {
         <div className="max-w-7xl mx-auto w-full border-t border-white/[0.05] pt-12 mt-20 flex flex-col md:flex-row justify-between items-center gap-8 relative z-10">
           <Link href="/" className="nav-logo group">
             <div className="text-xl font-black tracking-tighter text-white">
-              FAGENCY<span className="text-[#6200ea]">.</span>
+              FAGENCY<span className="text-[#FFC107]">.</span>
             </div>
           </Link>
           
           <div className="flex gap-12 text-[10px] uppercase tracking-[0.2em] font-black text-white/30">
-            <Link href="#" className="hover:text-[#6200ea] transition-colors">Privacy Policy</Link>
-            <Link href="#" className="hover:text-[#6200ea] transition-colors">Terms of Service</Link>
-            <Link href="#" className="hover:text-[#6200ea] transition-colors">© 2024 FAGENCY</Link>
+            <Link href="#" className="hover:text-[#FFC107] transition-colors">Privacy Policy</Link>
+            <Link href="#" className="hover:text-[#FFC107] transition-colors">Terms of Service</Link>
+            <Link href="#" className="hover:text-[#FFC107] transition-colors">© 2024 FAGENCY</Link>
           </div>
         </div>
       </div>

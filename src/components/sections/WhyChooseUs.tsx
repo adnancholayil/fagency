@@ -1,78 +1,46 @@
-"use client";
-
-import { motion } from "framer-motion";
-import { Zap, Monitor, Search, Users, DollarSign, Cpu, LifeBuoy } from "lucide-react";
-
-const features = [
-  {
-    title: "Fast Delivery",
-    description: "We value your time and deliver high-quality solutions within the agreed timelines.",
-    icon: Zap,
-  },
-  {
-    title: "Responsive Design",
-    description: "Your digital product will look and work perfectly on all devices and screen sizes.",
-    icon: Monitor,
-  },
-  {
-    title: "SEO Friendly",
-    description: "We build with search engines in mind to ensure your brand gets the visibility it deserves.",
-    icon: Search,
-  },
-  {
-    title: "Professional Team",
-    description: "A team of experts with years of experience in their respective creative fields.",
-    icon: Users,
-  },
-  {
-    title: "Affordable Pricing",
-    description: "Premium quality digital solutions at competitive prices that fit your budget.",
-    icon: DollarSign,
-  },
-  {
-    title: "Modern Tech",
-    description: "We use the latest tools and frameworks to build future-proof digital products.",
-    icon: Cpu,
-  },
-  {
-    title: "Ongoing Support",
-    description: "We're here for you even after launch with dedicated maintenance and support.",
-    icon: LifeBuoy,
-  },
-];
+import { CheckCircle2, Zap, Target, Users } from "lucide-react";
 
 export default function WhyChooseUs() {
   return (
-    <section className="py-24 px-6 bg-slate-950/20">
-      <div className="max-w-7xl mx-auto">
-        <div className="text-center mb-16 space-y-4">
-          <h2 className="text-4xl md:text-5xl font-bold">
-            Why <span className="text-gradient">Choose Us</span>
-          </h2>
-          <p className="text-slate-400 max-w-2xl mx-auto">
-            We combine creativity, technology, and strategy to deliver results that exceed expectations.
-          </p>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {features.map((feature, i) => (
-            <motion.div
-              key={i}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.05 }}
-              className="glass-card p-8 rounded-3xl group"
-            >
-              <div className="w-12 h-12 rounded-xl bg-primary/10 text-primary flex items-center justify-center mb-6 group-hover:bg-primary group-hover:text-white transition-all">
-                <feature.icon size={24} />
+    <section className="py-32 px-6 bg-[#050505] border-t border-white/[0.05]">
+      <div className="max-w-6xl mx-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
+          <div>
+            <h2 className="text-3xl md:text-5xl font-black text-white tracking-tighter mb-10 leading-none">
+              WHY CHOOSE <br /> <span className="text-[#FFC107]">OUR SOLUTIONS?</span>
+            </h2>
+            <div className="space-y-8">
+              {[
+                { title: "Bespoke Approach", desc: "Every project is unique. We don't use templates; we build custom solutions from the ground up." },
+                { title: "Cutting-Edge Tech", desc: "We use the latest frameworks like Next.js, Flutter, and AI models to ensure your product is future-proof." },
+                { title: "Transparent Process", desc: "You're involved in every step. From initial wireframes to final deployment, we maintain full transparency." }
+              ].map((item, i) => (
+                <div key={i} className="flex gap-6 group">
+                  <div className="w-14 h-14 rounded-2xl bg-white/[0.03] border border-white/10 flex items-center justify-center text-[#FFC107] group-hover:bg-[#FFC107] group-hover:text-black transition-all duration-500">
+                    <CheckCircle2 size={28} />
+                  </div>
+                  <div className="flex-1">
+                    <h4 className="text-xl font-bold text-white mb-2">{item.title}</h4>
+                    <p className="text-white/40 leading-relaxed">{item.desc}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+          <div className="grid grid-cols-2 gap-6">
+            {[
+              { icon: Zap, label: "Fast Performance", val: "99.9%" },
+              { icon: Target, label: "SEO Optimized", val: "100%" },
+              { icon: Users, label: "User Satisfaction", val: "10/10" },
+              { icon: CheckCircle2, label: "Code Quality", val: "A+" }
+            ].map((stat, i) => (
+              <div key={i} className="p-8 rounded-3xl bg-white/[0.02] border border-white/[0.05] flex flex-col items-center text-center group hover:border-[#FFC107]/30 transition-all duration-500">
+                <stat.icon size={32} className="text-[#FFC107] mb-4 group-hover:scale-110 transition-transform" />
+                <div className="text-3xl font-black text-white mb-1">{stat.val}</div>
+                <div className="text-[10px] uppercase tracking-widest font-bold text-white/30">{stat.label}</div>
               </div>
-              <h3 className="text-xl font-bold text-white mb-3">{feature.title}</h3>
-              <p className="text-slate-400 text-sm leading-relaxed">
-                {feature.description}
-              </p>
-            </motion.div>
-          ))}
+            ))}
+          </div>
         </div>
       </div>
     </section>
