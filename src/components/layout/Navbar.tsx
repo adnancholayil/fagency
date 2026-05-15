@@ -29,20 +29,20 @@ export default function Navbar() {
 
   useGSAP(() => {
     const tl = gsap.timeline();
-    tl.fromTo(".nav-logo", 
-      { y: -20, opacity: 0 }, 
+    tl.fromTo(".nav-logo",
+      { y: -20, opacity: 0 },
       { y: 0, opacity: 1, duration: 0.6, ease: "power3.out" }
     )
-    .fromTo(".nav-item", 
-      { y: -20, opacity: 0 }, 
-      { y: 0, opacity: 1, duration: 0.5, stagger: 0.1, ease: "power3.out" },
-      "-=0.4"
-    )
-    .fromTo(".nav-button", 
-      { y: -20, opacity: 0 }, 
-      { y: 0, opacity: 1, duration: 0.5, stagger: 0.1, ease: "power3.out" },
-      "-=0.4"
-    );
+      .fromTo(".nav-item",
+        { y: -20, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.5, stagger: 0.1, ease: "power3.out" },
+        "-=0.4"
+      )
+      .fromTo(".nav-button",
+        { y: -20, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.5, stagger: 0.1, ease: "power3.out" },
+        "-=0.4"
+      );
   }, { scope: headerRef });
 
   return (
@@ -50,12 +50,11 @@ export default function Navbar() {
       ref={headerRef}
       className="fixed top-0 left-0 right-0 z-50 flex justify-center pt-6 transition-all duration-500"
     >
-      <div 
-        className={`flex items-center justify-between transition-all duration-500 px-8 rounded-full border ${
-          isScrolled 
-            ? "w-[90%] md:w-[70%] max-w-[1200px] bg-black/60 backdrop-blur-xl border-white/10 py-3 shadow-[0_0_30px_rgba(0,0,0,0.5)]" 
+      <div
+        className={`flex items-center justify-between transition-all duration-500 px-8 rounded-full border ${isScrolled
+            ? "w-[90%] md:w-[70%] max-w-[1200px] bg-black/60 backdrop-blur-xl border-white/10 py-3 shadow-[0_0_30px_rgba(0,0,0,0.5)]"
             : "w-[95%] max-w-[1400px] bg-transparent border-transparent py-4"
-        }`}
+          }`}
       >
         <nav className="flex items-center justify-between w-full">
           {/* Logo */}
@@ -73,14 +72,12 @@ export default function Navbar() {
                 <Link
                   key={link.name}
                   href={link.href}
-                  className={`nav-item relative text-[11px] uppercase tracking-[0.2em] font-bold transition-all duration-300 group ${
-                    isActive ? "text-white" : "text-white/50 hover:text-white"
-                  }`}
+                  className={`nav-item relative text-[11px] uppercase tracking-[0.2em] font-bold transition-all duration-300 group ${isActive ? "text-white" : "text-white/50 hover:text-white"
+                    }`}
                 >
                   {link.name}
-                  <span className={`absolute -bottom-1 left-0 h-[2px] bg-[#FFC107] transition-all duration-300 group-hover:w-full ${
-                    isActive ? "w-full" : "w-0"
-                  }`} />
+                  <span className={`absolute -bottom-1 left-0 h-[2px] bg-[#FFC107] transition-all duration-300 group-hover:w-full ${isActive ? "w-full" : "w-0"
+                    }`} />
                 </Link>
               );
             })}
@@ -107,9 +104,8 @@ export default function Navbar() {
 
       {/* Mobile Nav Overlay */}
       <div
-        className={`fixed inset-0 bg-black/95 backdrop-blur-2xl z-40 flex items-center justify-center transition-all duration-700 ease-in-out ${
-          mobileMenuOpen ? "translate-y-0 opacity-100" : "-translate-y-full opacity-0 pointer-events-none"
-        }`}
+        className={`fixed inset-0 bg-black/95 backdrop-blur-2xl z-40 flex items-center justify-center transition-all duration-700 ease-in-out ${mobileMenuOpen ? "translate-y-0 opacity-100" : "-translate-y-full opacity-0 pointer-events-none"
+          }`}
       >
         <div className="flex flex-col items-center gap-10">
           {navLinks.map((link, i) => {
@@ -118,9 +114,8 @@ export default function Navbar() {
               <Link
                 key={link.name}
                 href={link.href}
-                className={`text-4xl font-black transition-all duration-300 transform ${
-                  isActive ? "text-[#FFC107]" : "text-white hover:text-[#FFC107]"
-                } ${mobileMenuOpen ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}
+                className={`text-4xl font-black transition-all duration-300 transform ${isActive ? "text-[#FFC107]" : "text-white hover:text-[#FFC107]"
+                  } ${mobileMenuOpen ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}
                 style={{ transitionDelay: `${i * 100}ms` }}
                 onClick={() => setMobileMenuOpen(false)}
               >

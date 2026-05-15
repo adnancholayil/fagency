@@ -3,6 +3,7 @@ import Footer from "@/components/layout/Footer";
 import About from "@/components/sections/About";
 import Values from "@/components/sections/Values";
 import Experience from "@/components/sections/Experience";
+import PageHero from "@/components/sections/PageHero";
 
 const aboutFaqs = [
   {
@@ -25,16 +26,11 @@ export default function AboutPage() {
       <Navbar />
       
       {/* Hero Section for About */}
-      <section className="pt-32 pb-16 px-6 bg-[#050505] flex flex-col items-center justify-center min-h-[50vh]">
-        <div className="max-w-[1000px] mx-auto text-center flex flex-col items-center w-full">
-          <h1 className="text-5xl md:text-7xl lg:text-[90px] font-bold leading-[1.1] tracking-tight text-white mb-8">
-            WHO <span className="text-[#FFC107]">WE ARE.</span>
-          </h1>
-          <p className="text-white/60 text-base md:text-lg max-w-2xl leading-relaxed">
-            Fagency is a collective of specialized freelancers with over 1 year of experience in delivering high-impact digital solutions. We bridge the gap between complex technology and human-centered design.
-          </p>
-        </div>
-      </section>
+      <PageHero 
+        title1="WHO"
+        title2="WE ARE."
+        description="Fagency is a collective of specialized freelancers with over 4 years of experience in delivering high-impact digital solutions. We bridge the gap between complex technology and human-centered design."
+      />
 
       {/* Main About Section */}
       <About />

@@ -2,6 +2,7 @@ import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import Services from "@/components/sections/Services";
 import WhyChooseUs from "@/components/sections/WhyChooseUs";
+import PageHero from "@/components/sections/PageHero";
 
 const serviceFaqs = [
   {
@@ -24,16 +25,11 @@ export default function ServicesPage() {
       <Navbar />
       
       {/* Hero Section for Services */}
-      <section className="pt-32 pb-16 px-6 bg-[#050505] flex flex-col items-center justify-center min-h-[50vh]">
-        <div className="max-w-[1000px] mx-auto text-center flex flex-col items-center w-full">
-          <h1 className="text-5xl md:text-7xl lg:text-[90px] font-bold leading-[1.1] tracking-tight text-white mb-8">
-            OUR <span className="text-[#FFC107]">EXPERTISE.</span>
-          </h1>
-          <p className="text-white/60 text-base md:text-lg max-w-2xl leading-relaxed">
-            From digital strategy to technical execution, we provide comprehensive solutions that drive growth and innovation. Explore our specialized services designed for the modern era.
-          </p>
-        </div>
-      </section>
+      <PageHero 
+        title1="OUR"
+        title2="EXPERTISE."
+        description="From digital strategy to technical execution, we provide comprehensive solutions that drive growth and innovation. Explore our specialized services designed for the modern era."
+      />
 
       {/* Main Services Grid */}
       <Services />

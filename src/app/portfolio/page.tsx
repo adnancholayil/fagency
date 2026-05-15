@@ -3,6 +3,7 @@ import Footer from "@/components/layout/Footer";
 import Portfolio from "@/components/sections/Portfolio";
 import IndustryFocus from "@/components/sections/IndustryFocus";
 import CallToAction from "@/components/sections/CallToAction";
+import PageHero from "@/components/sections/PageHero";
 
 const portfolioFaqs = [
   {
@@ -25,16 +26,11 @@ export default function PortfolioPage() {
       <Navbar />
       
       {/* Hero Section for Portfolio */}
-      <section className="pt-32 pb-16 px-6 bg-[#050505] flex flex-col items-center justify-center min-h-[50vh]">
-        <div className="max-w-[1000px] mx-auto text-center flex flex-col items-center w-full">
-          <h1 className="text-5xl md:text-7xl lg:text-[90px] font-bold leading-[1.1] tracking-tight text-white mb-8">
-            SELECTED <span className="text-[#FFC107]">WORKS.</span>
-          </h1>
-          <p className="text-white/60 text-base md:text-lg max-w-2xl leading-relaxed">
-            A collection of our most challenging and rewarding projects. Each piece demonstrates our commitment to performance, design, and technical excellence.
-          </p>
-        </div>
-      </section>
+      <PageHero 
+        title1="SELECTED"
+        title2="WORKS."
+        description="A collection of our most challenging and rewarding projects. Each piece demonstrates our commitment to performance, design, and technical excellence."
+      />
 
       {/* Main Portfolio Grid */}
       <Portfolio />

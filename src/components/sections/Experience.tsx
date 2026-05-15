@@ -4,10 +4,10 @@ export default function Experience() {
       <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
         <div>
           <h2 className="text-3xl md:text-5xl font-black text-white tracking-tighter mb-8 leading-none">
-            A YEAR OF <br /> <span className="text-[#FFC107]">RAPID GROWTH.</span>
+            YEARS OF <br /> <span className="text-[#FFC107]">RAPID GROWTH.</span>
           </h2>
           <p className="text-white/40 leading-relaxed mb-10 text-lg">
-            Starting as a small group of ambitious freelancers in Malappuram, we have quickly evolved into a go-to digital agency for local and international clients.
+            Starting as a small group of ambitious freelancers in Malappuram, we have quickly evolved into a go-to digital agency for local and international clients over the past 4 years.
           </p>
           <div className="flex flex-wrap gap-12">
             <div>
@@ -15,7 +15,7 @@ export default function Experience() {
               <div className="text-xs uppercase tracking-[0.3em] font-bold text-[#FFC107]">Projects Done</div>
             </div>
             <div>
-              <div className="text-5xl font-black text-white mb-2">1+</div>
+              <div className="text-5xl font-black text-white mb-2">4+</div>
               <div className="text-xs uppercase tracking-[0.3em] font-bold text-[#FFC107]">Years Experience</div>
             </div>
             <div>

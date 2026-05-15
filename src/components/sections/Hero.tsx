@@ -158,7 +158,7 @@ export default function Hero() {
         </h1>
 
         <p className="text-white/60 text-base md:text-lg max-w-2xl leading-relaxed mb-12 opacity-0 hero-subtext">
-          We are a team of professional freelancers with 1+ year of experience, dedicated to engineering your digital success. <span className="text-white">Fagency, your digital agency.</span>
+          We are a team of professional freelancers with 4+ years of experience, dedicated to engineering your digital success. <span className="text-white">Fagency, your digital agency.</span>
         </p>
 
         <div className="flex flex-wrap items-center justify-center gap-6 mb-20 opacity-0 hero-cta">

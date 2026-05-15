@@ -2,6 +2,7 @@
 
 import { useState, useRef } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { ChevronDown, Mail, Phone, MapPin, Instagram, Facebook } from "lucide-react";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
@@ -164,9 +165,14 @@ export default function Footer({ customFaqs }: FooterProps) {
 
         {/* Bottom Bar */}
         <div className="max-w-7xl mx-auto w-full border-t border-white/[0.05] pt-12 mt-20 flex flex-col md:flex-row justify-between items-center gap-8 relative z-10">
-          <Link href="/" className="nav-logo group">
-            <div className="text-xl font-black tracking-tighter text-white">
-              FAGENCY<span className="text-[#FFC107]">.</span>
+          <Link href="/" className="nav-logo group block">
+            <div className="relative w-32 h-10 transition-transform duration-300 group-hover:scale-105">
+              <Image 
+                src="/logo.PNG" 
+                alt="Fagency Logo" 
+                fill
+                className="object-contain object-left md:object-center opacity-60 group-hover:opacity-100 transition-opacity"
+              />
             </div>
           </Link>
           

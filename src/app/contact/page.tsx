@@ -3,6 +3,7 @@ import Footer from "@/components/layout/Footer";
 import Contact from "@/components/sections/Contact";
 import ContactInfo from "@/components/sections/ContactInfo";
 import OfficeHours from "@/components/sections/OfficeHours";
+import PageHero from "@/components/sections/PageHero";
 
 const contactFaqs = [
   {
@@ -25,16 +26,11 @@ export default function ContactPage() {
       <Navbar />
       
       {/* Hero Section for Contact */}
-      <section className="pt-32 pb-16 px-6 bg-[#050505] flex flex-col items-center justify-center min-h-[50vh]">
-        <div className="max-w-[1000px] mx-auto text-center flex flex-col items-center w-full">
-          <h1 className="text-5xl md:text-7xl lg:text-[90px] font-bold leading-[1.1] tracking-tight text-white mb-8">
-            GET IN <span className="text-[#FFC107]">TOUCH.</span>
-          </h1>
-          <p className="text-white/60 text-base md:text-lg max-w-2xl leading-relaxed">
-            Ready to start your next digital chapter? We are here to answer any questions and kickstart your project. Reach out via the form below or through our direct channels.
-          </p>
-        </div>
-      </section>
+      <PageHero 
+        title1="GET IN"
+        title2="TOUCH."
+        description="Ready to start your next digital chapter? We are here to answer any questions and kickstart your project. Reach out via the form below or through our direct channels."
+      />
 
       {/* Main Contact Section (Form + Map/Info) */}
       <div className="py-20">

@@ -443,6 +443,7 @@ const Hyperspeed = ({ effectOptions = DEFAULT_EFFECT_OPTIONS }) => {
       }
 
       init() {
+        if (this.disposed) return;
         this.initPasses();
         const options = this.options;
         this.road.init();
@@ -1118,7 +1119,11 @@ const Hyperspeed = ({ effectOptions = DEFAULT_EFFECT_OPTIONS }) => {
 
     const myApp = new App(container, options);
     appRef.current = myApp;
-    myApp.loadAssets().then(myApp.init);
+    myApp.loadAssets().then(() => {
+      if (!myApp.disposed) {
+        myApp.init();
+      }
+    });
 
     return () => {
       if (appRef.current) {

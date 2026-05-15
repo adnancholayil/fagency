@@ -11,7 +11,7 @@ gsap.registerPlugin(ScrollTrigger);
 const trustItems = [
   {
     num: "01",
-    title: "10+ Years of Tech Expertise",
+    title: "4+ Years of Tech Expertise",
   },
   {
     num: "02",
@@ -23,7 +23,7 @@ const trustItems = [
   },
   {
     num: "04",
-    title: "24/7 Support & Maintenance",
+    title: "Support & Maintenance",
   }
 ];
 
@@ -77,23 +77,23 @@ export default function About() {
           </p>
         </div>
 
-        <div className="trust-grid grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="trust-grid flex overflow-x-auto snap-x snap-mandatory md:grid md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 pb-6 md:pb-0 -mx-6 px-6 md:mx-0 md:px-0 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
           {trustItems.map((item, i) => (
             <div
               key={i}
-              className="trust-card group cursor-pointer p-8 rounded-2xl border border-black/10 bg-black/5 hover:bg-black/10 transition-all duration-300 flex flex-col min-h-[220px]"
+              className="trust-card group snap-start shrink-0 w-[240px] md:w-auto cursor-pointer p-6 md:p-8 rounded-2xl border border-black/10 bg-black/5 hover:bg-black/10 transition-all duration-300 flex flex-col min-h-[180px] md:min-h-[220px]"
             >
-              <div className="flex justify-end mb-4">
-                <div className="w-8 h-8 rounded-full border border-black/20 flex items-center justify-center text-black transition-transform duration-300 group-hover:rotate-45">
-                  <ArrowUpRight size={14} />
+              <div className="flex justify-end mb-2 md:mb-4">
+                <div className="w-6 h-6 md:w-8 md:h-8 rounded-full border border-black/20 flex items-center justify-center text-black transition-transform duration-300 group-hover:rotate-45">
+                  <ArrowUpRight className="w-3 h-3 md:w-4 md:h-4" />
                 </div>
               </div>
               
               <div className="mt-auto">
-                <div className="text-5xl font-bold text-black mb-4">
+                <div className="text-3xl md:text-5xl font-bold text-black mb-2 md:mb-4">
                   {item.num}
                 </div>
-                <h3 className="text-xl font-bold text-black leading-tight">
+                <h3 className="text-base md:text-xl font-bold text-black leading-tight">
                   {item.title}
                 </h3>
               </div>
