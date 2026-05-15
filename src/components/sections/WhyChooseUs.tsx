@@ -11,9 +11,9 @@ export default function WhyChooseUs() {
             </h2>
             <div className="space-y-8">
               {[
-                { title: "Bespoke Approach", desc: "Every project is unique. We don't use templates; we build custom solutions from the ground up." },
+                { title: "Bespoke Approach", desc: "Every project is unique. We don&apos;t use templates; we build custom solutions from the ground up." },
                 { title: "Cutting-Edge Tech", desc: "We use the latest frameworks like Next.js, Flutter, and AI models to ensure your product is future-proof." },
-                { title: "Transparent Process", desc: "You're involved in every step. From initial wireframes to final deployment, we maintain full transparency." }
+                { title: "Transparent Process", desc: "You&apos;re involved in every step. From initial wireframes to final deployment, we maintain full transparency." }
               ].map((item, i) => (
                 <div key={i} className="flex gap-6 group">
                   <div className="w-14 h-14 rounded-2xl bg-white/[0.03] border border-white/10 flex items-center justify-center text-[#FFC107] group-hover:bg-[#FFC107] group-hover:text-black transition-all duration-500">

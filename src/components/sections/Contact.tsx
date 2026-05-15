@@ -129,10 +129,10 @@ export default function Contact() {
       <div className="max-w-4xl mx-auto">
         <div className="contact-header text-center mb-16 space-y-4">
           <h2 className="text-4xl md:text-5xl font-bold text-white tracking-tight">
-            Let's work together.
+            Let&apos;s work together.
           </h2>
           <p className="text-white/70 text-lg md:text-xl font-medium">
-            Tell us about your project and we'll craft the perfect solution.
+            Tell us about your project and we&apos;ll craft the perfect solution.
           </p>
         </div>
 

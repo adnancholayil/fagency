@@ -26,6 +26,11 @@ export const metadata: Metadata = {
     locale: "en_US",
     type: "website",
   },
+  icons: {
+    icon: "/logo.PNG",
+    shortcut: "/logo.PNG",
+    apple: "/logo.PNG",
+  },
 };
 
 import SmoothScroll from "@/components/SmoothScroll";

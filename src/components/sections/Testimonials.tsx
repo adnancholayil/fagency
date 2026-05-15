@@ -33,7 +33,7 @@ export default function Testimonials() {
             Client <span className="text-gradient">Feedback</span>
           </h2>
           <p className="text-slate-400 max-w-2xl mx-auto">
-            Don't just take our word for it. Here's what our clients have to say about working with us.
+            Don&apos;t just take our word for it. Here&apos;s what our clients have to say about working with us.
           </p>
         </div>
 
@@ -56,7 +56,7 @@ export default function Testimonials() {
               </div>
               
               <p className="text-slate-300 mb-8 italic leading-relaxed">
-                "{t.content}"
+                &quot;{t.content}&quot;
               </p>
               
               <div className="flex items-center gap-4">

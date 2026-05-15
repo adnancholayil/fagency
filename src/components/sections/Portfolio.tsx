@@ -232,7 +232,7 @@ export default function Portfolio() {
               Real Impact. <span className="text-[#FFC107]">Proven Results.</span>
             </h2>
             <p className="text-white/70 text-sm md:text-base max-w-2xl mx-auto font-medium">
-              Explore how we've helped startups and enterprises alike scale and innovate across multiple industries.
+              Explore how we&apos;ve helped startups and enterprises alike scale and innovate across multiple industries.
             </p>
           </div>
 
@@ -336,7 +336,7 @@ export default function Portfolio() {
                   </div>
 
                   <p className="text-sm text-black leading-relaxed mb-8 font-medium italic h-[80px] flex items-center justify-center">
-                    "{t.text}"
+                    &quot;{t.text}&quot;
                   </p>
 
                   <div>

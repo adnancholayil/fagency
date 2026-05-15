@@ -63,6 +63,8 @@ export default function Hero() {
       <div className="absolute inset-0 z-0">
         <Hyperspeed
           effectOptions={{
+            onSpeedUp: () => {},
+            onSlowDown: () => {},
             distortion: 'turbulentDistortion',
             length: 400,
             roadWidth: 10,

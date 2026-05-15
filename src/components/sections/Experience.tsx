@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 export default function Experience() {
   return (
     <section className="py-24 px-6 bg-[#080808] border-t border-white/[0.05]">
@@ -27,9 +29,10 @@ export default function Experience() {
         <div className="relative">
           <div className="aspect-video rounded-3xl overflow-hidden border border-white/10 relative group">
             <div className="absolute inset-0 bg-[#FFC107]/10 group-hover:bg-transparent transition-colors duration-500" />
-            <img
+            <Image
               src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&q=80&w=2070"
               alt="Our Team"
+              fill
               className="w-full h-full object-cover"
             />
           </div>

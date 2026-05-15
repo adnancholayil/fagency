@@ -31,7 +31,7 @@ const trustItems = [
   {
     num: "04",
     title: "Support & Maintenance",
-    details: "Our relationship doesn't end at launch. We provide reliable support to ensure your digital assets always perform at their peak.",
+    details: "Our relationship doesn&apos;t end at launch. We provide reliable support to ensure your digital assets always perform at their peak.",
     features: ["24/7 Priority Support", "Regular Security Updates", "Performance Monitoring", "Incremental Feature Updates", "Hosting Management"]
   }
 ];
@@ -83,7 +83,7 @@ export default function About() {
             Built on Trust. Driven by Results.
           </h2>
           <p className="text-black/70 text-sm md:text-base max-w-2xl mx-auto font-medium">
-            We don't just build software we build relationships. Our clients trust us to deliver tech that works.
+            We don&apos;t just build software we build relationships. Our clients trust us to deliver tech that works.
           </p>
         </div>
 

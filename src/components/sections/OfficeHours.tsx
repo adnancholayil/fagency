@@ -1,4 +1,5 @@
 import { Phone } from "lucide-react";
+import Image from "next/image";
 
 export default function OfficeHours() {
   return (
@@ -22,8 +23,8 @@ export default function OfficeHours() {
             </p>
             <div className="flex -space-x-4">
               {[1, 2, 3, 4].map((i) => (
-                <div key={i} className="w-12 h-12 rounded-full border-2 border-[#050505] bg-zinc-800 overflow-hidden">
-                  <img src={`https://i.pravatar.cc/150?u=${i + 10}`} alt="Team member" className="w-full h-full object-cover grayscale" />
+                <div key={i} className="w-12 h-12 rounded-full border-2 border-[#050505] bg-zinc-800 overflow-hidden relative">
+                  <Image src={`https://i.pravatar.cc/150?u=${i + 10}`} alt="Team member" fill className="object-cover grayscale" />
                 </div>
               ))}
             </div>
