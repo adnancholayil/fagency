@@ -59,7 +59,7 @@ export default function Navbar() {
         <nav className="flex items-center justify-between w-full">
           {/* Logo */}
           <Link href="/" className="nav-logo flex items-center z-50 group">
-            <div className="text-xl font-black tracking-tighter text-white flex items-center">
+            <div className="text-xl font-bold tracking-tighter text-white flex items-center">
               FAGENCY<span className="text-[#FFC107] group-hover:animate-pulse">.</span>
             </div>
           </Link>
@@ -72,7 +72,7 @@ export default function Navbar() {
                 <Link
                   key={link.name}
                   href={link.href}
-                  className={`nav-item relative text-[11px] uppercase tracking-[0.2em] font-bold transition-all duration-300 group ${isActive ? "text-white" : "text-white/50 hover:text-white"
+                  className={`nav-item relative text-[11px] uppercase tracking-[0.2em] font-semibold transition-all duration-300 group ${isActive ? "text-white" : "text-white/50 hover:text-white"
                     }`}
                 >
                   {link.name}
@@ -86,7 +86,7 @@ export default function Navbar() {
           <div className="hidden md:flex items-center gap-4">
             <Link
               href="/contact"
-              className="nav-button px-6 py-2.5 bg-white text-black rounded-full text-[11px] uppercase tracking-wider font-black transition-all hover:bg-[#FFC107] hover:text-black shadow-[0_0_20px_rgba(255,255,255,0.1)] active:scale-95"
+              className="nav-button px-6 py-2.5 bg-white text-black rounded-full text-[11px] uppercase tracking-wider font-semibold transition-all hover:bg-[#FFC107] hover:text-black shadow-[0_0_20px_rgba(255,255,255,0.1)] active:scale-95"
             >
               Get Started
             </Link>
@@ -114,7 +114,7 @@ export default function Navbar() {
               <Link
                 key={link.name}
                 href={link.href}
-                className={`text-4xl font-black transition-all duration-300 transform ${isActive ? "text-[#FFC107]" : "text-white hover:text-[#FFC107]"
+                className={`text-4xl font-bold transition-all duration-300 transform ${isActive ? "text-[#FFC107]" : "text-white hover:text-[#FFC107]"
                   } ${mobileMenuOpen ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}
                 style={{ transitionDelay: `${i * 100}ms` }}
                 onClick={() => setMobileMenuOpen(false)}

@@ -75,12 +75,12 @@ export default function Cursor() {
     <>
       <div
         ref={cursorRef}
-        className="fixed top-0 left-0 w-1.5 h-1.5 bg-[#FFC107] rounded-full pointer-events-none z-[9999] mix-blend-difference will-change-transform"
+        className="fixed top-0 left-0 w-1.5 h-1.5 bg-[#FFC107] rounded-full pointer-events-none z-[9999] mix-blend-difference will-change-transform hidden md:block"
         style={{ transform: "translate(-50%, -50%)" }}
       />
       <div
         ref={followerRef}
-        className="fixed top-0 left-0 w-8 h-8 border border-[#FFC107]/40 rounded-full pointer-events-none z-[9999] will-change-transform"
+        className="fixed top-0 left-0 w-8 h-8 border border-[#FFC107]/40 rounded-full pointer-events-none z-[9999] will-change-transform hidden md:block"
         style={{ transform: "translate(-50%, -50%)" }}
       />
     </>

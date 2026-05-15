@@ -24,16 +24,16 @@ export default function ContactPage() {
   return (
     <main className="min-h-screen bg-[#050505]">
       <Navbar />
-      
+
       {/* Hero Section for Contact */}
-      <PageHero 
+      <PageHero
         title1="GET IN"
         title2="TOUCH."
         description="Ready to start your next digital chapter? We are here to answer any questions and kickstart your project. Reach out via the form below or through our direct channels."
       />
 
       {/* Main Contact Section (Form + Map/Info) */}
-      <div className="py-20">
+      <div className="py-0">
         <Contact />
       </div>
 

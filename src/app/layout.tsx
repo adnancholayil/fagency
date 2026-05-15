@@ -15,7 +15,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "Fagency | Your Digital Agency",
-  description: "Fagency is a professional freelancers team with 4+ years of experience in Malappuram, Kerala. We provide high-quality web, app, and software development solutions.",
+  description: "Fagency is a professional freelancers team with 1+ years of experience in Malappuram, Kerala. We provide high-quality web, app, and software development solutions.",
   keywords: ["Fagency", "Your Digital Agency", "web development Malappuram", "app development Kerala", "software development", "digital marketing", "media production"],
   authors: [{ name: "Fagency Team" }],
   openGraph: {

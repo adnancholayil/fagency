@@ -40,7 +40,7 @@ export default function Footer({ customFaqs }: FooterProps) {
   const currentFaqs = customFaqs || defaultFaqs;
 
   useGSAP(() => {
-    gsap.fromTo(".footer-line", 
+    gsap.fromTo(".footer-line",
       { y: 100, opacity: 0 },
       {
         y: 0,
@@ -55,7 +55,7 @@ export default function Footer({ customFaqs }: FooterProps) {
       }
     );
 
-    gsap.fromTo(".faq-item", 
+    gsap.fromTo(".faq-item",
       { y: 20, opacity: 0 },
       {
         y: 0,
@@ -74,32 +74,32 @@ export default function Footer({ customFaqs }: FooterProps) {
   return (
     <footer ref={container} className="bg-[#050505] relative overflow-hidden flex flex-col items-center">
       {/* FAQ Section (Pre-Footer) */}
-      <div className="max-w-4xl mx-auto py-32 px-6 w-full border-b border-white/[0.05]">
+      <div className="max-w-4xl mx-auto py-24 px-6 w-full border-b border-white/[0.05]">
         <div className="faq-header text-center mb-16">
-          <h2 className="text-3xl md:text-5xl font-black text-white tracking-tighter mb-4">
+          <h2 className="text-3xl md:text-5xl font-bold text-white tracking-tighter mb-4">
             FREQUENTLY <span className="text-[#FFC107]">ASKED.</span>
           </h2>
-          <p className="text-white/40 text-sm tracking-widest uppercase font-bold">
+          <p className="text-white/40 text-sm tracking-widest uppercase font-semibold">
             Answers to common digital project queries
           </p>
         </div>
 
         <div className="faq-list space-y-4">
           {currentFaqs.map((faq, i) => (
-            <div 
-              key={i} 
+            <div
+              key={i}
               className="faq-item border-b border-white/[0.05] pb-4 cursor-pointer group"
               onClick={() => setOpenFaq(openFaq === i ? null : i)}
             >
               <div className="flex justify-between items-center py-6">
-                <h4 className={`text-base md:text-lg font-bold tracking-tight transition-all duration-300 ${openFaq === i ? "text-[#FFC107] pl-4" : "text-white/60 group-hover:text-white"}`}>
+                <h4 className={`text-base md:text-lg font-medium tracking-tight transition-all duration-300 ${openFaq === i ? "text-[#FFC107] pl-4" : "text-white/60 group-hover:text-white"}`}>
                   {faq.q}
                 </h4>
                 <div className={`w-8 h-8 rounded-full border flex items-center justify-center transition-all duration-500 ${openFaq === i ? "bg-[#FFC107] border-[#FFC107] text-black rotate-180 shadow-[0_0_20px_rgba(255, 193, 7,0.5)]" : "border-white/10 text-white/40 group-hover:border-white/30"}`}>
                   <ChevronDown size={16} />
                 </div>
               </div>
-              <div 
+              <div
                 className={`overflow-hidden transition-all duration-500 ease-in-out ${openFaq === i ? "max-h-60 opacity-100" : "max-h-0 opacity-0"}`}
               >
                 <p className="text-sm text-white/40 leading-relaxed pt-2 pb-8 pr-12 pl-4">
@@ -114,19 +114,19 @@ export default function Footer({ customFaqs }: FooterProps) {
       {/* Massive Call To Action (Full Screen Footer) */}
       <div className="footer-content w-full min-h-[80vh] max-h-[90vh] flex flex-col justify-between py-24 px-6 md:px-12 lg:px-24 relative overflow-hidden">
         {/* Background Decorative Text */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[30vw] font-black text-white/[0.02] pointer-events-none select-none uppercase tracking-tighter whitespace-nowrap">
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[30vw] font-bold text-white/[0.02] pointer-events-none select-none uppercase tracking-tighter whitespace-nowrap">
           FAGENCY
         </div>
 
         <div className="max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-2 gap-20 relative z-10">
           <div className="flex flex-col justify-center space-y-10">
-            <h2 className="text-5xl md:text-7xl lg:text-[100px] font-black text-white leading-[0.9] tracking-tighter">
+            <h2 className="text-5xl md:text-7xl lg:text-[100px] font-bold text-white leading-[0.9] tracking-tighter">
               <div className="overflow-hidden"><span className="footer-line block">LET&apos;S WORK</span></div>
               <div className="overflow-hidden"><span className="footer-line block text-[#FFC107]">TOGETHER.</span></div>
             </h2>
-            <Link 
-              href="#contact" 
-              className="footer-line inline-flex items-center gap-4 text-xl md:text-2xl font-bold text-white group"
+            <Link
+              href="#contact"
+              className="footer-line inline-flex items-center gap-4 text-xl md:text-2xl font-semibold text-white group"
             >
               Start a project <span className="w-12 h-12 rounded-full bg-[#FFC107] flex items-center justify-center group-hover:translate-x-4 transition-transform duration-300"><ChevronDown size={24} className="-rotate-90" /></span>
             </Link>
@@ -135,18 +135,18 @@ export default function Footer({ customFaqs }: FooterProps) {
           <div className="flex flex-col justify-center space-y-16">
             <div className="grid grid-cols-2 gap-12">
               <div className="space-y-6">
-                <h5 className="text-[#FFC107] text-xs font-black uppercase tracking-[0.3em]">Contact</h5>
+                <h5 className="text-[#FFC107] text-xs font-bold uppercase tracking-[0.3em]">Contact</h5>
                 <div className="space-y-4 text-white/60 text-sm">
                   <a href="mailto:fagency.it@gmail.com" className="flex items-center gap-3 hover:text-white transition-colors"><Mail size={16} /> fagency.it@gmail.com</a>
-                  <a href="tel:+919876543210" className="flex items-center gap-3 hover:text-white transition-colors"><Phone size={16} /> +91 9876 543 210</a>
+                  <a href="tel:+917034887478" className="flex items-center gap-3 hover:text-white transition-colors"><Phone size={16} /> +91 7034 887 478</a>
                 </div>
               </div>
               <div className="space-y-6">
-                <h5 className="text-[#FFC107] text-xs font-black uppercase tracking-[0.3em]">Location</h5>
-                <p className="text-white/60 text-sm leading-relaxed flex items-start gap-3">
-                  <MapPin size={16} className="mt-1 flex-shrink-0" />
-                  Malappuram, Kerala<br />India
-                </p>
+                <h5 className="text-[#FFC107] text-xs font-bold uppercase tracking-[0.3em]">Location</h5>
+                <div className="space-y-4 text-white/60 text-sm flex items-start gap-3">
+                  <MapPin size={16} className="mt-1 shrink-0" />
+                  <p>Cyberpark, Kozhikode<br />Kerala, India</p>
+                </div>
               </div>
             </div>
 
@@ -166,17 +166,17 @@ export default function Footer({ customFaqs }: FooterProps) {
         {/* Bottom Bar */}
         <div className="max-w-7xl mx-auto w-full border-t border-white/[0.05] pt-12 mt-20 flex flex-col md:flex-row justify-between items-center gap-8 relative z-10">
           <Link href="/" className="nav-logo group block">
-            <div className="relative w-32 h-10 transition-transform duration-300 group-hover:scale-105">
-              <Image 
-                src="/logo.PNG" 
-                alt="Fagency Logo" 
+            <div className="relative w-32 h-10 transition-transform duration-300 group-hover:scale-105 ">
+              <Image
+                src="/logo.PNG"
+                alt="Fagency Logo"
                 fill
                 className="object-contain object-left md:object-center opacity-60 group-hover:opacity-100 transition-opacity"
               />
             </div>
           </Link>
-          
-          <div className="flex gap-12 text-[10px] uppercase tracking-[0.2em] font-black text-white/30">
+
+          <div className="flex gap-12 text-[10px] uppercase tracking-[0.2em] font-medium text-white/30">
             <Link href="#" className="hover:text-[#FFC107] transition-colors">Privacy Policy</Link>
             <Link href="#" className="hover:text-[#FFC107] transition-colors">Terms of Service</Link>
             <Link href="#" className="hover:text-[#FFC107] transition-colors">© 2024 FAGENCY</Link>

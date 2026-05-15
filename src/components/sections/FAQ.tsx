@@ -45,7 +45,7 @@ export default function FAQ() {
                 onClick={() => setActiveIndex(activeIndex === i ? null : i)}
                 className="w-full p-6 text-left flex justify-between items-center group"
               >
-                <span className="text-lg font-bold text-white group-hover:text-primary transition-colors">
+                <span className="text-lg font-medium text-white group-hover:text-[#FFC107] transition-colors">
                   {faq.question}
                 </span>
                 <div className="shrink-0 ml-4">

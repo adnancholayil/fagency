@@ -24,12 +24,12 @@ export default function AboutPage() {
   return (
     <main className="min-h-screen bg-[#050505]">
       <Navbar />
-      
+
       {/* Hero Section for About */}
-      <PageHero 
+      <PageHero
         title1="WHO"
         title2="WE ARE."
-        description="Fagency is a collective of specialized freelancers with over 4 years of experience in delivering high-impact digital solutions. We bridge the gap between complex technology and human-centered design."
+        description="Fagency is a collective of specialized freelancers with over 1 years of experience in delivering high-impact digital solutions. We bridge the gap between complex technology and human-centered design."
       />
 
       {/* Main About Section */}

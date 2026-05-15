@@ -383,6 +383,15 @@ const Hyperspeed = ({ effectOptions = DEFAULT_EFFECT_OPTIONS }) => {
 
         this.renderPass = new RenderPass(this.scene, this.camera);
         
+        // Performance optimization: skip postprocessing on mobile
+        const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
+        
+        if (isMobile) {
+          this.renderPass.renderToScreen = true;
+          this.composer.addPass(this.renderPass);
+          return;
+        }
+
         try {
           this.bloomPass = new EffectPass(
             this.camera,
@@ -411,7 +420,6 @@ const Hyperspeed = ({ effectOptions = DEFAULT_EFFECT_OPTIONS }) => {
           this.composer.addPass(smaaPass);
         } catch (e) {
           console.error("Postprocessing error:", e);
-          // Fallback to simple render pass if effects fail
           this.renderPass.renderToScreen = true;
           this.composer.addPass(this.renderPass);
         }

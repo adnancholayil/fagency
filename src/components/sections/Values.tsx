@@ -2,10 +2,10 @@ import { Rocket, Shield, Heart, Lightbulb } from "lucide-react";
 
 export default function Values() {
   return (
-    <section className="py-32 px-6 bg-[#050505] border-t border-white/[0.05]">
+    <section className="py-20 px-6 bg-[#050505] border-t border-white/[0.05]">
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-24">
-          <h2 className="text-3xl md:text-5xl font-black text-white tracking-tighter mb-6">
+          <h2 className="text-3xl md:text-5xl font-bold text-white tracking-tighter mb-6">
             OUR CORE <span className="text-[#FFC107]">VALUES.</span>
           </h2>
           <p className="text-white/40 max-w-xl mx-auto">The principles that guide our work and define our agency culture.</p>
@@ -20,7 +20,7 @@ export default function Values() {
           ].map((value, i) => (
             <div key={i} className="p-10 rounded-3xl bg-white/[0.02] border border-white/[0.05] hover:bg-white/[0.04] transition-all duration-500 group">
               <value.icon size={40} className="text-[#FFC107] mb-8 group-hover:scale-110 transition-transform" />
-              <h4 className="text-xl font-bold text-white mb-4">{value.title}</h4>
+              <h4 className="text-xl font-semibold text-white mb-4">{value.title}</h4>
               <p className="text-sm text-white/40 leading-relaxed">{value.desc}</p>
             </div>
           ))}

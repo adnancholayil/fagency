@@ -104,40 +104,40 @@ export default function Hero() {
 
       {/* Massive Background Marquee */}
       <div className="absolute top-1/2 left-0 w-full pointer-events-none -z-25 opacity-[0.03] select-none overflow-hidden">
-        <div className="marquee-text text-[25vw] font-black text-white uppercase leading-none whitespace-nowrap flex">
+        <div className="marquee-text text-[25vw] font-bold text-white uppercase leading-none whitespace-nowrap flex">
           <span>INNOVATION • TECHNOLOGY • SOLUTIONS • DESIGN •&nbsp;</span>
           <span>INNOVATION • TECHNOLOGY • SOLUTIONS • DESIGN •&nbsp;</span>
         </div>
       </div>
 
-      {/* Mouse Spotlight */}
+      {/* Mouse Spotlight - Optimized with will-change and transform-gpu */}
       <div
-        className="fixed top-0 left-0 w-[800px] h-[800px] bg-[#FFC107] opacity-[0.1] blur-[150px] pointer-events-none rounded-full z-0 will-change-transform transition-transform duration-300 ease-out"
+        className="fixed top-0 left-0 w-[800px] h-[800px] bg-[#FFC107] opacity-[0.05] blur-[150px] pointer-events-none rounded-full z-0 will-change-transform transform-gpu transition-transform duration-300 ease-out hidden md:block"
         style={{
           transform: `translate(calc(var(--mouse-x, 50vw) - 50%), calc(var(--mouse-y, 50vh) - 50%))`
         }}
       />
 
-      {/* Background Floating Elements */}
+      {/* Background Floating Elements - Simplified for Mobile */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none z-10">
-        <div className="bg-node absolute top-[15%] left-[10%] text-[#FFC107]/30 will-change-transform"><Cpu size={40} /></div>
-        <div className="bg-node absolute top-[55%] left-[20%] text-[#FFC107]/20 will-change-transform"><Globe size={32} /></div>
-        <div className="bg-node absolute top-[35%] right-[15%] text-[#FFC107]/30 will-change-transform"><Shield size={48} /></div>
-        <div className="bg-node absolute bottom-[25%] right-[25%] text-[#FFC107]/20 will-change-transform"><Zap size={36} /></div>
+        <div className="bg-node absolute top-[15%] left-[10%] text-[#FFC107]/30 will-change-transform hidden md:block"><Cpu size={40} /></div>
+        <div className="bg-node absolute top-[55%] left-[20%] text-[#FFC107]/20 will-change-transform hidden md:block"><Globe size={32} /></div>
+        <div className="bg-node absolute top-[35%] right-[15%] text-[#FFC107]/30 will-change-transform hidden md:block"><Shield size={48} /></div>
+        <div className="bg-node absolute bottom-[25%] right-[25%] text-[#FFC107]/20 will-change-transform hidden md:block"><Zap size={36} /></div>
 
-        <div className="bg-node absolute top-[25%] left-[18%] w-4 h-4 bg-[#FFC107] rounded-full blur-[6px] will-change-transform" />
-        <div className="bg-node absolute top-[65%] left-[28%] w-3 h-3 bg-[#FFC107] rounded-full blur-[4px] will-change-transform" />
-        <div className="bg-node absolute top-[45%] right-[22%] w-5 h-5 bg-[#FFC107] rounded-full blur-[8px] will-change-transform" />
-        <div className="bg-node absolute bottom-[35%] right-[32%] w-3 h-3 bg-[#FFC107] rounded-full blur-[4px] will-change-transform" />
+        <div className="bg-node absolute top-[25%] left-[18%] w-4 h-4 bg-[#FFC107] rounded-full blur-[6px] will-change-transform opacity-20" />
+        <div className="bg-node absolute top-[65%] left-[28%] w-3 h-3 bg-[#FFC107] rounded-full blur-[4px] will-change-transform opacity-20" />
+        <div className="bg-node absolute top-[45%] right-[22%] w-5 h-5 bg-[#FFC107] rounded-full blur-[8px] will-change-transform opacity-20" />
+        <div className="bg-node absolute bottom-[35%] right-[32%] w-3 h-3 bg-[#FFC107] rounded-full blur-[4px] will-change-transform opacity-20" />
       </div>
 
-      {/* Technical HUD Elements */}
-      <div className="absolute top-[15%] left-[10%] w-64 h-64 border border-[#FFC107]/10 rounded-full flex items-center justify-center z-10 animate-[spin_20s_linear_infinite]">
+      {/* Technical HUD Elements - Desktop Only */}
+      <div className="absolute top-[15%] left-[10%] w-64 h-64 border border-[#FFC107]/10 rounded-full hidden lg:flex items-center justify-center z-10 animate-[spin_20s_linear_infinite]">
         <div className="w-48 h-48 border border-[#FFC107]/10 rounded-full border-dashed" />
         <div className="absolute w-full h-[1px] bg-[#FFC107]/10" />
         <div className="absolute w-[1px] h-full bg-[#FFC107]/10" />
       </div>
-      <div className="absolute bottom-[20%] right-[10%] w-48 h-48 border border-[#FFC107]/10 rounded-full flex items-center justify-center z-10 animate-[spin_15s_linear_infinite_reverse]">
+      <div className="absolute bottom-[20%] right-[10%] w-48 h-48 border border-[#FFC107]/10 rounded-full hidden lg:flex items-center justify-center z-10 animate-[spin_15s_linear_infinite_reverse]">
         <div className="w-32 h-32 border border-[#FFC107]/5 rounded-full border-dashed" />
         <div className="absolute w-full h-[1px] bg-[#FFC107]/10" />
         <div className="absolute w-[1px] h-full bg-[#FFC107]/10" />
@@ -148,7 +148,7 @@ export default function Hero() {
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-[50vh] bg-gradient-to-b from-white/10 to-transparent opacity-20 pointer-events-none -z-10 rounded-full" style={{ filter: 'blur(80px)' }} />
 
       <div className="max-w-[1000px] mx-auto px-6 text-center relative z-20 hero-text flex flex-col items-center w-full mt-2">
-        <h1 className="text-5xl md:text-7xl lg:text-[90px] font-bold leading-[1.1] tracking-tight text-white mb-8">
+        <h1 className="text-5xl md:text-7xl lg:text-[90px] font-semibold leading-[1.1] tracking-tight text-white mb-8">
           <div className="overflow-hidden">
             <span className="hero-line block">Innovating Tomorrow.</span>
           </div>
@@ -158,18 +158,18 @@ export default function Hero() {
         </h1>
 
         <p className="text-white/60 text-base md:text-lg max-w-2xl leading-relaxed mb-12 opacity-0 hero-subtext">
-          We are a team of professional freelancers with 4+ years of experience, dedicated to engineering your digital success. <span className="text-white">Fagency, your digital agency.</span>
+          We are a team of professional freelancers with 1+ years of experience, dedicated to engineering your digital success. <span className="text-white">Fagency, your digital agency.</span>
         </p>
 
         <div className="flex flex-wrap items-center justify-center gap-6 mb-20 opacity-0 hero-cta">
           <Link
-            href="#contact"
+            href="/contact"
             className="px-8 py-3.5 bg-[#FFC107] hover:bg-[#FFB300] text-black rounded-lg font-semibold transition-all shadow-[0_0_20px_rgba(255,193,7,0.4)] text-sm"
           >
             Get a Free Consultation
           </Link>
           <Link
-            href="#portfolio"
+            href="/portfolio"
             className="px-8 py-3.5 bg-transparent border border-white/20 hover:bg-white/5 text-white rounded-lg font-semibold transition-all text-sm"
           >
             See Our Work
