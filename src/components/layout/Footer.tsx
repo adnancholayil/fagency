@@ -152,7 +152,7 @@ export default function Footer({ customFaqs }: FooterProps) {
 
             <div className="flex gap-6">
               {[
-                { icon: Instagram, href: "https://instagram.com/fegency_" },
+                { icon: Instagram, href: "https://instagram.com/fagency_" },
                 { icon: Facebook, href: "https://facebook.com/fagency" }
               ].map((social, i) => (
                 <a key={i} href={social.href} target="_blank" rel="noopener noreferrer" className="w-12 h-12 rounded-full border border-white/10 flex items-center justify-center text-white/40 hover:bg-[#FFC107] hover:border-[#FFC107] hover:text-black transition-all duration-500 hover:-translate-y-2">

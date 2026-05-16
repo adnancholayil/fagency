@@ -8,7 +8,7 @@ export default function ContactInfo() {
           {[
             { icon: MessageSquare, title: "Chat with Us", desc: "Speak directly with our team for quick inquiries.", link: "https://wa.me/917034887478", label: "Open WhatsApp" },
             { icon: Mail, title: "Email Support", desc: "For detailed project proposals and official requests.", link: "mailto:fagency.it@gmail.com", label: "fagency.it@gmail.com" },
-            { icon: Instagram, title: "Instagram Connect", desc: "Follow our digital journey and recent updates.", link: "https://instagram.com/fegency_", label: "@fegency_" }
+            { icon: Instagram, title: "Instagram Connect", desc: "Follow our digital journey and recent updates.", link: "https://instagram.com/fagency_", label: "@fagency_" }
           ].map((item, i) => (
             <div key={i} className="p-10 rounded-3xl bg-white/[0.02] border border-white/[0.05] hover:border-[#FFC107]/20 transition-all duration-500 group">
               <item.icon size={32} className="text-[#FFC107] mb-6 group-hover:scale-110 transition-transform" />
