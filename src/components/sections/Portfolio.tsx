@@ -396,7 +396,7 @@ export default function Portfolio() {
                         </button>
 
                         <div className="flex gap-1.5">
-                          {selectedProject.images.map((_, i) => (
+                          {selectedProject.images.map((_: string, i: number) => (
                             <div
                               key={i}
                               className={`h-1 rounded-full transition-all duration-300 ${i === currentImageIndex ? "w-6 bg-[#FFC107]" : "w-1.5 bg-white/20"}`}
