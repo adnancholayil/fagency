@@ -1,10 +1,10 @@
 "use client";
 
-import { useRef, useEffect } from "react";
+import { useRef } from "react";
 import Link from "next/link";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
-import { Star, Cpu, Globe, Shield, Zap } from "lucide-react";
+import { Cpu, Globe, Shield, Zap } from "lucide-react";
 import Hyperspeed from "../backgrounds/Hyperspeed";
 
 export default function Hero() {
@@ -61,11 +61,8 @@ export default function Hero() {
     <section ref={container} className="relative min-h-screen pt-28 pb-0 overflow-hidden flex flex-col items-center justify-center bg-[#050505]">
       {/* Hyperspeed Background Component */}
       <div className="absolute inset-0 z-0">
-        {/* @ts-ignore */}
         <Hyperspeed
           effectOptions={{
-            onSpeedUp: () => {},
-            onSlowDown: () => {},
             distortion: 'turbulentDistortion',
             length: 400,
             roadWidth: 10,

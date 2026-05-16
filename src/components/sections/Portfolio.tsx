@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState, useEffect } from "react";
+import { useRef, useState } from "react";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -237,7 +237,7 @@ export default function Portfolio() {
           </div>
 
           <div className="impact-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12 min-h-[600px]">
-            {currentProjects.map((p, i) => (
+            {currentProjects.map((p) => (
               <motion.div
                 layout
                 initial={{ opacity: 0, y: 20 }}
