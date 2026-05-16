@@ -6,7 +6,6 @@ import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Star, X, CheckCircle2, ArrowRight, ExternalLink, ChevronLeft, ChevronRight } from "lucide-react";
 import Link from "next/link";
-import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -226,7 +225,7 @@ export default function Portfolio() {
       <div className="max-w-6xl mx-auto">
 
         {/* Real Impact Section */}
-        <div className="mb-32">
+        <div className="mb-20 md:mb-32">
           <div className="impact-header text-center mb-16 space-y-4">
             <h2 className="text-3xl md:text-4xl font-semibold text-white tracking-tight">
               Real Impact. <span className="text-[#FFC107]">Proven Results.</span>
@@ -304,7 +303,7 @@ export default function Portfolio() {
 
         {/* Trusted by Innovators Section */}
         <div className="relative">
-          <div className="text-center mb-24">
+          <div className="text-center mb-16 md:mb-24">
             <h2 className="text-3xl md:text-4xl font-semibold text-white tracking-tight">
               Trusted by Innovators
             </h2>
@@ -318,24 +317,15 @@ export default function Portfolio() {
               {[...testimonials, ...testimonials].map((t, i) => (
                 <div
                   key={i}
-                  className="testimonial-card relative bg-[#FFC107] rounded-2xl p-8 pt-12 text-center w-[350px] shrink-0"
+                  className="testimonial-card relative bg-[#FFC107] rounded-2xl p-6 md:p-8 text-center w-[280px] md:w-[350px] shrink-0"
                 >
-                  <div className="absolute -top-10 left-1/2 -translate-x-1/2 w-20 h-20 rounded-full border-4 border-[#050505] overflow-hidden bg-slate-800">
-                    <Image
-                      src="/portfolio/ecommerce.png"
-                      alt={t.name}
-                      fill
-                      className="object-cover grayscale"
-                    />
-                  </div>
-
-                  <div className="flex justify-center text-white/40 mb-6">
+                  <div className="flex justify-center text-white/40 mb-6 mt-2">
                     {[1, 2, 3, 4, 5].map((star) => (
                       <Star key={star} size={14} fill="currentColor" stroke="none" />
                     ))}
                   </div>
 
-                  <p className="text-sm text-black leading-relaxed mb-8 font-medium italic h-[80px] flex items-center justify-center">
+                  <p className="text-sm text-black leading-relaxed mb-8 font-medium italic min-h-[100px] md:min-h-[80px] flex items-center justify-center">
                     &quot;{t.text}&quot;
                   </p>
 
