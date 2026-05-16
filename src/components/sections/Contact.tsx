@@ -83,36 +83,55 @@ export default function Contact() {
     );
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    // Construct WhatsApp Message
-    let text = `*New Inquiry from Fagency*\n\n`;
-    text += `*Type:* ${contactType === 'company' ? '🏢 Company' : '👤 Personal'}\n`;
+    const enquiryData = {
+      name: formData.name,
+      email: formData.email,
+      phone: formData.phone,
+      service: selectedServices.join(', ') || 'General Inquiry',
+      message: formData.message,
+      source: source || 'Direct'
+    };
 
-    if (contactType === 'company') {
-      text += `*Company Name:* ${formData.companyName}\n`;
-      text += `*Contact Person:* ${formData.name}\n`;
-      if (formData.website) text += `*Website:* ${formData.website}\n`;
-    } else {
-      text += `*Name:* ${formData.name}\n`;
+    try {
+      const res = await fetch("http://localhost:5001/api/enquiries", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(enquiryData)
+      });
+
+      if (res.ok) {
+        // Construct WhatsApp Message as fallback/convenience
+        let text = `*New Inquiry from Fagency*\n\n`;
+        text += `*Type:* ${contactType === 'company' ? '🏢 Company' : '👤 Personal'}\n`;
+        if (contactType === 'company') {
+          text += `*Company Name:* ${formData.companyName}\n`;
+          text += `*Contact Person:* ${formData.name}\n`;
+          if (formData.website) text += `*Website:* ${formData.website}\n`;
+        } else {
+          text += `*Name:* ${formData.name}\n`;
+        }
+        text += `*Email:* ${formData.email}\n`;
+        if (formData.phone) text += `*Phone:* ${formData.phone}\n`;
+        if (selectedServices.length > 0) text += `\n*Interested Services:*\n- ${selectedServices.join('\n- ')}\n`;
+        if (source) text += `\n*Found us via:* ${source}\n`;
+        text += `\n*Message:*\n${formData.message}`;
+
+        const whatsappUrl = `https://wa.me/917034887478?text=${encodeURIComponent(text)}`;
+        window.open(whatsappUrl, '_blank');
+        
+        // Reset form or show success
+        setFormData({ name: "", companyName: "", email: "", phone: "", website: "", message: "" });
+        setSelectedServices([]);
+        setSource("");
+        alert("Inquiry sent successfully!");
+      }
+    } catch (err) {
+      console.error("Error sending inquiry:", err);
+      alert("Something went wrong. Please try again.");
     }
-
-    text += `*Email:* ${formData.email}\n`;
-    if (formData.phone) text += `*Phone:* ${formData.phone}\n`;
-
-    if (selectedServices.length > 0) {
-      text += `\n*Interested Services:*\n- ${selectedServices.join('\n- ')}\n`;
-    }
-
-    if (source) {
-      text += `\n*Found us via:* ${source}\n`;
-    }
-
-    text += `\n*Message:*\n${formData.message}`;
-
-    const whatsappUrl = `https://wa.me/917034887478?text=${encodeURIComponent(text)}`;
-    window.open(whatsappUrl, '_blank');
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {

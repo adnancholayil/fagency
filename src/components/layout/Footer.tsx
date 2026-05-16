@@ -179,6 +179,7 @@ export default function Footer({ customFaqs }: FooterProps) {
           <div className="flex gap-12 text-[10px] uppercase tracking-[0.2em] font-medium text-white/30">
             <Link href="/privacy" className="hover:text-[#FFC107] transition-colors">Privacy Policy</Link>
             <Link href="/terms" className="hover:text-[#FFC107] transition-colors">Terms of Service</Link>
+            <Link href="/admin" className="hover:text-[#FFC107] transition-colors">Admin</Link>
             <Link href="#" className="hover:text-[#FFC107] transition-colors">© 2024 FAGENCY</Link>
           </div>
         </div>
