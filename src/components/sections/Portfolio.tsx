@@ -95,9 +95,10 @@ export default function Portfolio() {
   React.useEffect(() => {
     const fetchData = async () => {
       try {
+        const API = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5002/api";
         const [projRes, revRes] = await Promise.all([
-          fetch("http://localhost:5002/api/projects"),
-          fetch("http://localhost:5002/api/reviews")
+          fetch(`${API}/projects`),
+          fetch(`${API}/reviews`)
         ]);
         const projData = await projRes.json();
         const revData = await revRes.json();

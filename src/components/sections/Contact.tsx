@@ -96,7 +96,8 @@ export default function Contact() {
     };
 
     try {
-      const res = await fetch("http://localhost:5002/api/enquiries", {
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5002/api";
+      const res = await fetch(`${apiUrl}/enquiries`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(enquiryData)

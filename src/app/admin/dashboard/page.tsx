@@ -26,7 +26,7 @@ import {
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 
-const API_BASE = "http://localhost:5002/api";
+const API_BASE = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5002/api";
 
 export default function DashboardPage() {
   const [user, setUser] = useState<any>(null);
