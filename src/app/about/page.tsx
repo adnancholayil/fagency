@@ -1,9 +1,16 @@
+import type { Metadata } from "next";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import About from "@/components/sections/About";
 import Values from "@/components/sections/Values";
 import Experience from "@/components/sections/Experience";
 import PageHero from "@/components/sections/PageHero";
+
+export const metadata: Metadata = {
+  title: "About Us",
+  description: "Learn about Fagency — a team of 5 specialized freelancers based in Malappuram, Kerala. We deliver expert web, app, graphic design, and digital marketing solutions.",
+  alternates: { canonical: "https://fagency.vercel.app/about" },
+};
 
 const aboutFaqs = [
   {

@@ -1,9 +1,16 @@
+import type { Metadata } from "next";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import Contact from "@/components/sections/Contact";
 import ContactInfo from "@/components/sections/ContactInfo";
 import OfficeHours from "@/components/sections/OfficeHours";
 import PageHero from "@/components/sections/PageHero";
+
+export const metadata: Metadata = {
+  title: "Contact Us",
+  description: "Get in touch with Fagency. We are a digital agency based in Malappuram, Kerala. Contact us for web development, app development, design, or any digital solution.",
+  alternates: { canonical: "https://fagency.vercel.app/contact" },
+};
 
 const contactFaqs = [
   {

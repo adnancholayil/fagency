@@ -1,9 +1,16 @@
+import type { Metadata } from "next";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import Portfolio from "@/components/sections/Portfolio";
 import IndustryFocus from "@/components/sections/IndustryFocus";
 import CallToAction from "@/components/sections/CallToAction";
 import PageHero from "@/components/sections/PageHero";
+
+export const metadata: Metadata = {
+  title: "Portfolio",
+  description: "Explore Fagency's portfolio of web apps, mobile apps, graphic design, and media production projects. See how we deliver premium digital experiences.",
+  alternates: { canonical: "https://fagency.vercel.app/portfolio" },
+};
 
 const portfolioFaqs = [
   {

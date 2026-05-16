@@ -1,8 +1,15 @@
+import type { Metadata } from "next";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import Services from "@/components/sections/Services";
 import WhyChooseUs from "@/components/sections/WhyChooseUs";
 import PageHero from "@/components/sections/PageHero";
+
+export const metadata: Metadata = {
+  title: "Our Services",
+  description: "Fagency offers Web Development, App Development, Software Development, Graphic Design, Media Production & Digital Marketing in Malappuram, Kerala.",
+  alternates: { canonical: "https://fagency.vercel.app/services" },
+};
 
 const serviceFaqs = [
   {
