@@ -96,8 +96,8 @@ export default function Portfolio() {
     const fetchData = async () => {
       try {
         const [projRes, revRes] = await Promise.all([
-          fetch("http://localhost:5001/api/projects"),
-          fetch("http://localhost:5001/api/reviews")
+          fetch("http://localhost:5002/api/projects"),
+          fetch("http://localhost:5002/api/reviews")
         ]);
         const projData = await projRes.json();
         const revData = await revRes.json();
