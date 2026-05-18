@@ -338,7 +338,7 @@ export default function Portfolio() {
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.9, y: 20 }}
               transition={{ type: "spring", damping: 25, stiffness: 300 }}
-              className="relative w-full max-w-4xl bg-[#0F0F0F] border border-white/10 rounded-[2.5rem] overflow-hidden shadow-2xl flex flex-col md:flex-row"
+              className="relative w-full max-w-4xl max-h-[95vh] bg-[#0F0F0F] border border-white/10 rounded-[2.5rem] overflow-hidden shadow-2xl flex flex-col md:flex-row"
             >
               {/* Close Button - Global */}
               <button
@@ -436,7 +436,7 @@ export default function Portfolio() {
               </div>
 
               {/* Right Column: Information */}
-              <div className="p-8 md:p-12 md:w-[55%] flex flex-col justify-center">
+              <div className="p-8 md:p-12 md:w-[55%] flex flex-col justify-center overflow-y-auto">
                 <div className="mb-8">
                   <div className="text-[#FFC107] text-[10px] font-medium uppercase tracking-[0.4em] mb-3">
                     {selectedProject.category}

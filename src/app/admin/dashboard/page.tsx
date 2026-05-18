@@ -44,6 +44,9 @@ export default function DashboardPage() {
     title: "", category: "Web Development", desc: "", details: "",
     features: "", link: "", image: ""
   });
+  const [imageFile, setImageFile] = useState<File | null>(null);
+  const [imagePreview, setImagePreview] = useState<string | null>(null);
+  const [isUploading, setIsUploading] = useState(false);
   const [newReview, setNewReview] = useState({
     name: "", role: "", text: "", rating: 5
   });
@@ -102,10 +105,35 @@ export default function DashboardPage() {
     }
   };
 
+  const handleImageSelect = (file: File) => {
+    setImageFile(file);
+    const reader = new FileReader();
+    reader.onloadend = () => setImagePreview(reader.result as string);
+    reader.readAsDataURL(file);
+  };
+
   const handleAddProject = async (e: React.FormEvent) => {
     e.preventDefault();
     const token = localStorage.getItem("fagency_admin_token");
     try {
+      let imageUrl = newProject.image;
+
+      // Upload image file if one was selected
+      if (imageFile) {
+        setIsUploading(true);
+        const formData = new FormData();
+        formData.append("image", imageFile);
+        const uploadRes = await fetch(`${API_BASE}/upload`, {
+          method: "POST",
+          headers: { "Authorization": `Bearer ${token}` },
+          body: formData,
+        });
+        const uploadData = await uploadRes.json();
+        if (!uploadRes.ok) throw new Error(uploadData.message || "Upload failed");
+        imageUrl = uploadData.url;
+        setIsUploading(false);
+      }
+
       const res = await fetch(`${API_BASE}/projects`, {
         method: "POST",
         headers: {
@@ -114,16 +142,20 @@ export default function DashboardPage() {
         },
         body: JSON.stringify({
           ...newProject,
+          image: imageUrl,
           features: newProject.features.split(",").map(f => f.trim())
         })
       });
       if (res.ok) {
         setIsProjectModalOpen(false);
         setNewProject({ title: "", category: "Web Development", desc: "", details: "", features: "", link: "", image: "" });
+        setImageFile(null);
+        setImagePreview(null);
         fetchAllData(token!);
       }
     } catch (err) {
       console.error("Error adding project:", err);
+      setIsUploading(false);
     }
   };
 
@@ -556,15 +588,15 @@ export default function DashboardPage() {
       {/* MODALS */}
       <AnimatePresence>
         {isProjectModalOpen && (
-          <div className="fixed inset-0 z-[100] flex items-center justify-center p-6">
+          <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onClick={() => setIsProjectModalOpen(false)} className="absolute inset-0 bg-black/90 backdrop-blur-sm" />
-            <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.95 }} className="relative w-full max-w-2xl bg-[#0F0F0F] border border-white/10 rounded-[2.5rem] shadow-2xl p-8 md:p-12 max-h-[90vh] overflow-y-auto">
-              <div className="flex justify-between items-center mb-10">
+            <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.95 }} className="relative w-full max-w-2xl bg-[#0F0F0F] border border-white/10 rounded-[2.5rem] shadow-2xl p-8 md:p-10 max-h-[95vh] overflow-y-auto">
+              <div className="flex justify-between items-center mb-8">
                 <h3 className="text-2xl font-bold text-white">Add New Project</h3>
                 <button onClick={() => setIsProjectModalOpen(false)} className="text-white/40 hover:text-white"><X /></button>
               </div>
-              <form onSubmit={handleAddProject} className="space-y-6">
-                <div className="grid grid-cols-2 gap-6">
+              <form onSubmit={handleAddProject} className="space-y-5">
+                <div className="grid grid-cols-2 gap-5">
                   <div className="space-y-2">
                     <label className="text-[10px] font-bold uppercase tracking-widest text-white/40">Title</label>
                     <input value={newProject.title} onChange={e => setNewProject({ ...newProject, title: e.target.value })} className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 focus:border-[#FFC107] outline-none" required />
@@ -586,23 +618,55 @@ export default function DashboardPage() {
                 </div>
                 <div className="space-y-2">
                   <label className="text-[10px] font-bold uppercase tracking-widest text-white/40">Full Details</label>
-                  <textarea value={newProject.details} onChange={e => setNewProject({ ...newProject, details: e.target.value })} className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 focus:border-[#FFC107] outline-none h-24" required />
+                  <textarea value={newProject.details} onChange={e => setNewProject({ ...newProject, details: e.target.value })} className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 focus:border-[#FFC107] outline-none h-20" required />
                 </div>
-                <div className="grid grid-cols-2 gap-6">
-                  <div className="space-y-2">
-                    <label className="text-[10px] font-bold uppercase tracking-widest text-white/40">Image URL</label>
-                    <input value={newProject.image} onChange={e => setNewProject({ ...newProject, image: e.target.value })} className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 focus:border-[#FFC107] outline-none" placeholder="/portfolio/img.jpg" />
-                  </div>
-                  <div className="space-y-2">
-                    <label className="text-[10px] font-bold uppercase tracking-widest text-white/40">Project Link</label>
-                    <input value={newProject.link} onChange={e => setNewProject({ ...newProject, link: e.target.value })} className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 focus:border-[#FFC107] outline-none" placeholder="https://..." />
-                  </div>
+
+                {/* Image Upload */}
+                <div className="space-y-2">
+                  <label className="text-[10px] font-bold uppercase tracking-widest text-white/40">Project Image</label>
+                  <label
+                    htmlFor="project-image-upload"
+                    onDragOver={e => e.preventDefault()}
+                    onDrop={e => { e.preventDefault(); const f = e.dataTransfer.files[0]; if (f) handleImageSelect(f); }}
+                    className="relative flex flex-col items-center justify-center w-full h-40 border-2 border-dashed border-white/10 rounded-2xl cursor-pointer hover:border-[#FFC107]/50 transition-all overflow-hidden group"
+                  >
+                    {imagePreview ? (
+                      <>
+                        <img src={imagePreview} alt="Preview" className="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:opacity-80 transition-all" />
+                        <div className="relative z-10 bg-black/60 px-3 py-1 rounded-lg text-xs font-bold text-white backdrop-blur-sm">Click to change</div>
+                      </>
+                    ) : (
+                      <div className="flex flex-col items-center gap-2 text-white/30 group-hover:text-[#FFC107]/60 transition-colors">
+                        <Upload size={28} />
+                        <span className="text-xs font-bold uppercase tracking-wider">Click or drag image here</span>
+                        <span className="text-[10px] text-white/20">JPG, PNG, WEBP · Max 10MB</span>
+                      </div>
+                    )}
+                    <input
+                      id="project-image-upload"
+                      type="file"
+                      accept="image/*"
+                      className="hidden"
+                      onChange={e => { const f = e.target.files?.[0]; if (f) handleImageSelect(f); }}
+                    />
+                  </label>
+                </div>
+
+                <div className="space-y-2">
+                  <label className="text-[10px] font-bold uppercase tracking-widest text-white/40">Project Link</label>
+                  <input value={newProject.link} onChange={e => setNewProject({ ...newProject, link: e.target.value })} className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 focus:border-[#FFC107] outline-none" placeholder="https://..." />
                 </div>
                 <div className="space-y-2">
                   <label className="text-[10px] font-bold uppercase tracking-widest text-white/40">Features (Comma separated)</label>
                   <input value={newProject.features} onChange={e => setNewProject({ ...newProject, features: e.target.value })} className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 focus:border-[#FFC107] outline-none" placeholder="React, GSAP, Node.js" />
                 </div>
-                <button type="submit" className="w-full bg-[#FFC107] text-black font-bold py-4 rounded-2xl mt-6 hover:bg-[#FFD54F] transition-all">Create Project</button>
+                <button
+                  type="submit"
+                  disabled={isUploading}
+                  className="w-full bg-[#FFC107] text-black font-bold py-4 rounded-2xl mt-2 hover:bg-[#FFD54F] transition-all flex items-center justify-center gap-2 disabled:opacity-60 disabled:cursor-not-allowed"
+                >
+                  {isUploading ? <><Loader2 size={18} className="animate-spin" /> Uploading Image...</> : "Create Project"}
+                </button>
               </form>
             </motion.div>
           </div>
