@@ -206,18 +206,21 @@ export default function Portfolio() {
               >
                 {/* Card Image Preview */}
                 <div className="relative h-48 w-full overflow-hidden bg-black/40">
-                  {p.images || p.image ? (
-                    <Image
-                      src={p.images ? p.images[0] : p.image!}
-                      alt={p.title}
-                      fill
-                      className="object-cover group-hover:scale-110 transition-transform duration-700 opacity-60 group-hover:opacity-100"
-                    />
-                  ) : (
-                    <div className="w-full h-full flex items-center justify-center text-[#FFC107]/20">
-                      <Star size={40} />
-                    </div>
-                  )}
+                  {(() => {
+                    const cardSrc = (p.images && p.images[0]) || p.image || p.imageUrl || p.thumbnail || null;
+                    return cardSrc ? (
+                      <Image
+                        src={cardSrc}
+                        alt={p.title}
+                        fill
+                        className="object-cover group-hover:scale-110 transition-transform duration-700 opacity-60 group-hover:opacity-100"
+                      />
+                    ) : (
+                      <div className="w-full h-full flex items-center justify-center text-[#FFC107]/20">
+                        <Star size={40} />
+                      </div>
+                    );
+                  })()}
                   <div className="absolute inset-0 bg-gradient-to-t from-[#0A0A0A] to-transparent" />
                 </div>
 
@@ -349,36 +352,47 @@ export default function Portfolio() {
               <div className="relative h-72 md:h-auto md:w-[45%] bg-black/40 border-b md:border-b-0 md:border-r border-white/10 overflow-hidden flex items-center justify-center">
                 <div className="relative h-full w-full">
                   <AnimatePresence mode="wait">
-                    {selectedProject.images ? (
-                      <motion.div
-                        key={currentImageIndex}
-                        initial={{ opacity: 0, x: 20 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        exit={{ opacity: 0, x: -20 }}
-                        transition={{ duration: 0.3 }}
-                        className="relative h-full w-full"
-                      >
-                        <Image
-                          src={selectedProject.images[currentImageIndex]}
-                          alt={`${selectedProject.title} ${currentImageIndex + 1}`}
-                          fill
-                          className="object-contain p-8"
-                        />
-                      </motion.div>
-                    ) : selectedProject.image ? (
-                      <div className="relative h-full w-full">
-                        <Image
-                          src={selectedProject.image}
-                          alt={selectedProject.title}
-                          fill
-                          className="object-contain p-8"
-                        />
-                      </div>
-                    ) : (
-                      <div className="w-full h-full flex items-center justify-center text-white/10">
-                        <Star size={48} />
-                      </div>
-                    )}
+                    {(() => {
+                      const images = selectedProject.images && selectedProject.images.length > 0 ? selectedProject.images : null;
+                      const singleSrc = selectedProject.image || selectedProject.imageUrl || selectedProject.thumbnail || null;
+                      if (images) {
+                        const imgSrc = images[currentImageIndex];
+                        return imgSrc ? (
+                          <motion.div
+                            key={currentImageIndex}
+                            initial={{ opacity: 0, x: 20 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            exit={{ opacity: 0, x: -20 }}
+                            transition={{ duration: 0.3 }}
+                            className="relative h-full w-full"
+                          >
+                            <Image
+                              src={imgSrc}
+                              alt={`${selectedProject.title} ${currentImageIndex + 1}`}
+                              fill
+                              className="object-contain p-8"
+                            />
+                          </motion.div>
+                        ) : null;
+                      } else if (singleSrc) {
+                        return (
+                          <div className="relative h-full w-full">
+                            <Image
+                              src={singleSrc}
+                              alt={selectedProject.title}
+                              fill
+                              className="object-contain p-8"
+                            />
+                          </div>
+                        );
+                      } else {
+                        return (
+                          <div className="w-full h-full flex items-center justify-center text-white/10">
+                            <Star size={48} />
+                          </div>
+                        );
+                      }
+                    })()}
                   </AnimatePresence>
 
                   {/* Navigation Controls for Gallery */}
