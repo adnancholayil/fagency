@@ -38,6 +38,7 @@ export default function DashboardPage() {
   const [isLoading, setIsLoading] = useState(true);
   const [isProjectModalOpen, setIsProjectModalOpen] = useState(false);
   const [isReviewModalOpen, setIsReviewModalOpen] = useState(false);
+  const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
 
   // Form States
   const [newProject, setNewProject] = useState({
@@ -66,9 +67,13 @@ export default function DashboardPage() {
   }, [router]);
 
   const handleLogout = () => {
+    setIsLogoutModalOpen(true);
+  };
+
+  const confirmLogout = () => {
     localStorage.removeItem("fagency_admin_token");
     localStorage.removeItem("fagency_admin_user");
-    router.push("/admin/login");
+    router.push("/");
   };
 
   const fetchAllData = async (token: string) => {
@@ -590,20 +595,30 @@ export default function DashboardPage() {
         {isProjectModalOpen && (
           <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onClick={() => setIsProjectModalOpen(false)} className="absolute inset-0 bg-black/90 backdrop-blur-sm" />
-            <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.95 }} className="relative w-full max-w-2xl bg-[#0F0F0F] border border-white/10 rounded-[2.5rem] shadow-2xl p-8 md:p-10 max-h-[95vh] overflow-y-auto">
-              <div className="flex justify-between items-center mb-8">
-                <h3 className="text-2xl font-bold text-white">Add New Project</h3>
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.95 }}
+              className="relative w-full max-w-2xl bg-[#0F0F0F] border border-white/10 rounded-[2.5rem] shadow-2xl flex flex-col overflow-hidden"
+              style={{ minHeight: '80vh', maxHeight: '95vh' }}
+            >
+              {/* Header */}
+              <div className="flex justify-between items-center px-8 pt-7 pb-5 flex-shrink-0">
+                <h3 className="text-xl font-bold text-white">Add New Project</h3>
                 <button onClick={() => setIsProjectModalOpen(false)} className="text-white/40 hover:text-white"><X /></button>
               </div>
-              <form onSubmit={handleAddProject} className="space-y-5">
-                <div className="grid grid-cols-2 gap-5">
-                  <div className="space-y-2">
+
+              {/* Form fills remaining space */}
+              <form onSubmit={handleAddProject} className="flex-1 flex flex-col px-8 pb-7 gap-4 overflow-hidden">
+                {/* Row 1: Title + Category */}
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="space-y-1.5">
                     <label className="text-[10px] font-bold uppercase tracking-widest text-white/40">Title</label>
-                    <input value={newProject.title} onChange={e => setNewProject({ ...newProject, title: e.target.value })} className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 focus:border-[#FFC107] outline-none" required />
+                    <input value={newProject.title} onChange={e => setNewProject({ ...newProject, title: e.target.value })} className="w-full bg-white/5 border border-white/10 rounded-xl px-3 py-2.5 text-sm focus:border-[#FFC107] outline-none" required />
                   </div>
-                  <div className="space-y-2">
+                  <div className="space-y-1.5">
                     <label className="text-[10px] font-bold uppercase tracking-widest text-white/40">Category</label>
-                    <select value={newProject.category} onChange={e => setNewProject({ ...newProject, category: e.target.value })} className="w-full bg-[#050505] text-white border border-white/10 rounded-xl px-4 py-3 focus:border-[#FFC107] outline-none">
+                    <select value={newProject.category} onChange={e => setNewProject({ ...newProject, category: e.target.value })} className="w-full bg-[#050505] text-white border border-white/10 rounded-xl px-3 py-2.5 text-sm focus:border-[#FFC107] outline-none">
                       <option value="Web Development" className="bg-[#050505] text-white">Web Development</option>
                       <option value="App Development" className="bg-[#050505] text-white">App Development</option>
                       <option value="Software Development" className="bg-[#050505] text-white">Software Development</option>
@@ -612,23 +627,27 @@ export default function DashboardPage() {
                     </select>
                   </div>
                 </div>
-                <div className="space-y-2">
-                  <label className="text-[10px] font-bold uppercase tracking-widest text-white/40">Short Description</label>
-                  <input value={newProject.desc} onChange={e => setNewProject({ ...newProject, desc: e.target.value })} className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 focus:border-[#FFC107] outline-none" required />
-                </div>
-                <div className="space-y-2">
-                  <label className="text-[10px] font-bold uppercase tracking-widest text-white/40">Full Details</label>
-                  <textarea value={newProject.details} onChange={e => setNewProject({ ...newProject, details: e.target.value })} className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 focus:border-[#FFC107] outline-none h-20" required />
+
+                {/* Row 2: Short Desc + Full Details */}
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="space-y-1.5">
+                    <label className="text-[10px] font-bold uppercase tracking-widest text-white/40">Short Description</label>
+                    <textarea value={newProject.desc} onChange={e => setNewProject({ ...newProject, desc: e.target.value })} className="w-full bg-white/5 border border-white/10 rounded-xl px-3 py-2.5 text-sm focus:border-[#FFC107] outline-none resize-none h-[72px]" required />
+                  </div>
+                  <div className="space-y-1.5">
+                    <label className="text-[10px] font-bold uppercase tracking-widest text-white/40">Full Details</label>
+                    <textarea value={newProject.details} onChange={e => setNewProject({ ...newProject, details: e.target.value })} className="w-full bg-white/5 border border-white/10 rounded-xl px-3 py-2.5 text-sm focus:border-[#FFC107] outline-none resize-none h-[72px]" required />
+                  </div>
                 </div>
 
                 {/* Image Upload */}
-                <div className="space-y-2">
+                <div className="space-y-1.5">
                   <label className="text-[10px] font-bold uppercase tracking-widest text-white/40">Project Image</label>
                   <label
                     htmlFor="project-image-upload"
                     onDragOver={e => e.preventDefault()}
                     onDrop={e => { e.preventDefault(); const f = e.dataTransfer.files[0]; if (f) handleImageSelect(f); }}
-                    className="relative flex flex-col items-center justify-center w-full h-40 border-2 border-dashed border-white/10 rounded-2xl cursor-pointer hover:border-[#FFC107]/50 transition-all overflow-hidden group"
+                    className="relative flex flex-col items-center justify-center w-full h-28 border-2 border-dashed border-white/10 rounded-2xl cursor-pointer hover:border-[#FFC107]/50 transition-all overflow-hidden group"
                   >
                     {imagePreview ? (
                       <>
@@ -636,36 +655,35 @@ export default function DashboardPage() {
                         <div className="relative z-10 bg-black/60 px-3 py-1 rounded-lg text-xs font-bold text-white backdrop-blur-sm">Click to change</div>
                       </>
                     ) : (
-                      <div className="flex flex-col items-center gap-2 text-white/30 group-hover:text-[#FFC107]/60 transition-colors">
-                        <Upload size={28} />
+                      <div className="flex flex-col items-center gap-1.5 text-white/30 group-hover:text-[#FFC107]/60 transition-colors">
+                        <Upload size={22} />
                         <span className="text-xs font-bold uppercase tracking-wider">Click or drag image here</span>
                         <span className="text-[10px] text-white/20">JPG, PNG, WEBP · Max 10MB</span>
                       </div>
                     )}
-                    <input
-                      id="project-image-upload"
-                      type="file"
-                      accept="image/*"
-                      className="hidden"
-                      onChange={e => { const f = e.target.files?.[0]; if (f) handleImageSelect(f); }}
-                    />
+                    <input id="project-image-upload" type="file" accept="image/*" className="hidden" onChange={e => { const f = e.target.files?.[0]; if (f) handleImageSelect(f); }} />
                   </label>
                 </div>
 
-                <div className="space-y-2">
-                  <label className="text-[10px] font-bold uppercase tracking-widest text-white/40">Project Link</label>
-                  <input value={newProject.link} onChange={e => setNewProject({ ...newProject, link: e.target.value })} className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 focus:border-[#FFC107] outline-none" placeholder="https://..." />
+                {/* Row 3: Link + Features */}
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="space-y-1.5">
+                    <label className="text-[10px] font-bold uppercase tracking-widest text-white/40">Project Link</label>
+                    <input value={newProject.link} onChange={e => setNewProject({ ...newProject, link: e.target.value })} className="w-full bg-white/5 border border-white/10 rounded-xl px-3 py-2.5 text-sm focus:border-[#FFC107] outline-none" placeholder="https://..." />
+                  </div>
+                  <div className="space-y-1.5">
+                    <label className="text-[10px] font-bold uppercase tracking-widest text-white/40">Features (comma separated)</label>
+                    <input value={newProject.features} onChange={e => setNewProject({ ...newProject, features: e.target.value })} className="w-full bg-white/5 border border-white/10 rounded-xl px-3 py-2.5 text-sm focus:border-[#FFC107] outline-none" placeholder="React, GSAP, Node.js" />
+                  </div>
                 </div>
-                <div className="space-y-2">
-                  <label className="text-[10px] font-bold uppercase tracking-widest text-white/40">Features (Comma separated)</label>
-                  <input value={newProject.features} onChange={e => setNewProject({ ...newProject, features: e.target.value })} className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 focus:border-[#FFC107] outline-none" placeholder="React, GSAP, Node.js" />
-                </div>
+
+                {/* Submit - pinned to bottom */}
                 <button
                   type="submit"
                   disabled={isUploading}
-                  className="w-full bg-[#FFC107] text-black font-bold py-4 rounded-2xl mt-2 hover:bg-[#FFD54F] transition-all flex items-center justify-center gap-2 disabled:opacity-60 disabled:cursor-not-allowed"
+                  className="mt-auto w-full bg-[#FFC107] text-black font-bold py-3.5 rounded-2xl hover:bg-[#FFD54F] transition-all flex items-center justify-center gap-2 disabled:opacity-60 disabled:cursor-not-allowed text-sm"
                 >
-                  {isUploading ? <><Loader2 size={18} className="animate-spin" /> Uploading Image...</> : "Create Project"}
+                  {isUploading ? <><Loader2 size={16} className="animate-spin" /> Uploading Image...</> : "Create Project"}
                 </button>
               </form>
             </motion.div>
@@ -675,30 +693,81 @@ export default function DashboardPage() {
         {isReviewModalOpen && (
           <div className="fixed inset-0 z-[100] flex items-center justify-center p-6">
             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onClick={() => setIsReviewModalOpen(false)} className="absolute inset-0 bg-black/90 backdrop-blur-sm" />
-            <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.95 }} className="relative w-full max-w-md bg-[#0F0F0F] border border-white/10 rounded-[2.5rem] shadow-2xl p-8 md:p-12 max-h-[90vh] overflow-y-auto">
-              <div className="flex justify-between items-center mb-10">
-                <h3 className="text-2xl font-bold text-white">Add Review</h3>
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.95 }}
+              className="relative w-full max-w-md bg-[#0F0F0F] border border-white/10 rounded-[2.5rem] shadow-2xl flex flex-col overflow-hidden"
+              style={{ minHeight: '80vh', maxHeight: '95vh' }}
+            >
+              <div className="flex justify-between items-center px-8 pt-7 pb-4 flex-shrink-0">
+                <h3 className="text-xl font-bold text-white">Add Review</h3>
                 <button onClick={() => setIsReviewModalOpen(false)} className="text-white/40 hover:text-white"><X /></button>
               </div>
-              <form onSubmit={handleAddReview} className="space-y-6">
-                <div className="space-y-2">
+              <form onSubmit={handleAddReview} className="flex-1 flex flex-col px-8 pb-7 gap-4 overflow-hidden">
+                <div className="space-y-1.5">
                   <label className="text-[10px] font-bold uppercase tracking-widest text-white/40">Client Name</label>
-                  <input value={newReview.name} onChange={e => setNewReview({ ...newReview, name: e.target.value })} className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 focus:border-[#FFC107] outline-none" required />
+                  <input value={newReview.name} onChange={e => setNewReview({ ...newReview, name: e.target.value })} className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-2.5 text-sm focus:border-[#FFC107] outline-none" required />
                 </div>
-                <div className="space-y-2">
+                <div className="space-y-1.5">
                   <label className="text-[10px] font-bold uppercase tracking-widest text-white/40">Role / Company</label>
-                  <input value={newReview.role} onChange={e => setNewReview({ ...newReview, role: e.target.value })} className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 focus:border-[#FFC107] outline-none" required />
+                  <input value={newReview.role} onChange={e => setNewReview({ ...newReview, role: e.target.value })} className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-2.5 text-sm focus:border-[#FFC107] outline-none" required />
                 </div>
-                <div className="space-y-2">
+                <div className="flex-1 space-y-1.5 flex flex-col">
                   <label className="text-[10px] font-bold uppercase tracking-widest text-white/40">Review Text</label>
-                  <textarea value={newReview.text} onChange={e => setNewReview({ ...newReview, text: e.target.value })} className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 focus:border-[#FFC107] outline-none h-32" required />
+                  <textarea value={newReview.text} onChange={e => setNewReview({ ...newReview, text: e.target.value })} className="flex-1 w-full bg-white/5 border border-white/10 rounded-xl px-4 py-2.5 text-sm focus:border-[#FFC107] outline-none resize-none" required />
                 </div>
-                <div className="space-y-2">
+                <div className="space-y-1.5">
                   <label className="text-[10px] font-bold uppercase tracking-widest text-white/40">Rating (1-5)</label>
-                  <input type="number" min="1" max="5" value={newReview.rating} onChange={e => setNewReview({ ...newReview, rating: parseInt(e.target.value) })} className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 focus:border-[#FFC107] outline-none" required />
+                  <input type="number" min="1" max="5" value={newReview.rating} onChange={e => setNewReview({ ...newReview, rating: parseInt(e.target.value) })} className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-2.5 text-sm focus:border-[#FFC107] outline-none" required />
                 </div>
-                <button type="submit" className="w-full bg-[#FFC107] text-black font-bold py-4 rounded-2xl mt-6">Publish Review</button>
+                <button type="submit" className="mt-auto w-full bg-[#FFC107] text-black font-bold py-3.5 rounded-2xl text-sm hover:bg-[#FFD54F] transition-all">Publish Review</button>
               </form>
+            </motion.div>
+          </div>
+        )}
+
+        {/* Logout Confirmation Modal */}
+        {isLogoutModalOpen && (
+          <div className="fixed inset-0 z-[200] flex items-center justify-center p-6">
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setIsLogoutModalOpen(false)}
+              className="absolute inset-0 bg-black/90 backdrop-blur-sm"
+            />
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.9, y: 20 }}
+              transition={{ type: "spring", damping: 25, stiffness: 300 }}
+              className="relative w-full max-w-sm bg-[#0F0F0F] border border-white/10 rounded-[2rem] shadow-2xl p-10 text-center"
+            >
+              {/* Icon */}
+              <div className="w-16 h-16 rounded-2xl bg-red-500/10 border border-red-500/20 flex items-center justify-center mx-auto mb-6">
+                <LogOut size={28} className="text-red-400" />
+              </div>
+
+              <h3 className="text-xl font-bold text-white mb-2">Sign Out?</h3>
+              <p className="text-white/40 text-sm font-medium mb-8 leading-relaxed">
+                You will be signed out and redirected to the homepage.
+              </p>
+
+              <div className="flex gap-3">
+                <button
+                  onClick={() => setIsLogoutModalOpen(false)}
+                  className="flex-1 py-3 rounded-xl border border-white/10 text-white/60 hover:bg-white/5 hover:text-white transition-all font-bold text-sm"
+                >
+                  Cancel
+                </button>
+                <button
+                  onClick={confirmLogout}
+                  className="flex-1 py-3 rounded-xl bg-red-500 hover:bg-red-600 text-white font-bold text-sm transition-all shadow-[0_0_20px_rgba(239,68,68,0.2)]"
+                >
+                  Yes, Sign Out
+                </button>
+              </div>
             </motion.div>
           </div>
         )}

@@ -130,11 +130,12 @@ export default function About() {
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.9, y: 20 }}
               transition={{ type: "spring", damping: 25, stiffness: 300 }}
-              className="relative w-full max-w-lg bg-[#FFD700] border border-black/10 rounded-[2.5rem] overflow-hidden shadow-2xl"
+              className="relative w-full max-w-lg bg-[#FFD700] border border-black/10 rounded-[2.5rem] overflow-hidden shadow-2xl flex flex-col"
+              style={{ minHeight: '80vh', maxHeight: '95vh' }}
             >
-              <div className="p-10 md:p-12">
-                <div className="flex justify-between items-start mb-10">
-                  <div className="text-6xl font-black text-black/20 leading-none">
+              <div className="flex-1 flex flex-col p-8 md:p-10 overflow-hidden">
+                <div className="flex justify-between items-start mb-6">
+                  <div className="text-5xl font-black text-black/20 leading-none">
                     {selectedItem.num}
                   </div>
                   <button
@@ -145,23 +146,23 @@ export default function About() {
                   </button>
                 </div>
 
-                <h2 className="text-3xl font-bold text-black mb-6">
+                <h2 className="text-2xl md:text-3xl font-bold text-black mb-4">
                   {selectedItem.title}
                 </h2>
-                <p className="text-black/70 font-medium leading-relaxed mb-10">
+                <p className="text-black/70 font-medium leading-relaxed mb-6 text-sm md:text-base">
                   {selectedItem.details}
                 </p>
 
-                <div className="space-y-4">
+                <div className="flex-1 space-y-3">
                   {selectedItem.features.map((feature, i) => (
                     <div key={i} className="flex items-center gap-4 text-black/80">
-                      <CheckCircle2 size={20} className="text-black shrink-0" />
+                      <CheckCircle2 size={18} className="text-black shrink-0" />
                       <span className="font-semibold text-sm">{feature}</span>
                     </div>
                   ))}
                 </div>
 
-                <div className="mt-12">
+                <div className="mt-auto pt-6">
                   <button
                     onClick={() => setSelectedItem(null)}
                     className="w-full py-4 bg-black text-[#FFD700] rounded-2xl font-bold transition-all text-sm hover:scale-[1.02] active:scale-95 shadow-xl"

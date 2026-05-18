@@ -74,12 +74,7 @@ export default function Home() {
 
         {/* Portfolio Teaser */}
         <section className="border-t border-white/[0.05]">
-          <Portfolio />
-          <div className="flex justify-center -mt-10 mb-20">
-            <Link href="/portfolio" className="group flex items-center gap-3 text-white/50 hover:text-[#FFC107] transition-all font-bold tracking-widest text-xs uppercase">
-              View full portfolio <ArrowUpRight size={18} className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
-            </Link>
-          </div>
+          <Portfolio maxCards={3} />
         </section>
 
         <Footer />

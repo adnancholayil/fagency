@@ -81,9 +81,14 @@ const testimonials = [
   }
 ];
 
-export default function Portfolio() {
+interface PortfolioProps {
+  maxCards?: number;
+}
+
+export default function Portfolio({ maxCards }: PortfolioProps) {
   const container = useRef<HTMLDivElement>(null);
   const marqueeRef = useRef<HTMLDivElement>(null);
+  const marqueeAnimRef = useRef<gsap.core.Tween | null>(null);
   const [dbProjects, setDbProjects] = useState<any[]>([]);
   const [dbReviews, setDbReviews] = useState<any[]>([]);
   const [selectedProject, setSelectedProject] = useState<any | null>(null);
@@ -117,10 +122,13 @@ export default function Portfolio() {
     fetchData();
   }, []);
 
+  const isLimited = typeof maxCards === 'number';
   const totalPages = Math.ceil(dbProjects.length / projectsPerPage);
   const indexOfLastProject = currentPage * projectsPerPage;
   const indexOfFirstProject = indexOfLastProject - projectsPerPage;
-  const currentProjects = dbProjects.slice(indexOfFirstProject, indexOfLastProject);
+  const currentProjects = isLimited
+    ? dbProjects.slice(0, maxCards)
+    : dbProjects.slice(indexOfFirstProject, indexOfLastProject);
 
   useGSAP(() => {
     gsap.fromTo(".impact-header > *",
@@ -153,23 +161,54 @@ export default function Portfolio() {
       }
     );
 
-    // Testimonial Marquee Animation
+  }, { scope: container });
+
+  // Marquee animation — runs AFTER reviews data is loaded so scrollWidth is correct
+  useEffect(() => {
+    if (dbReviews.length === 0) return;
+
     const marquee = marqueeRef.current;
-    if (marquee) {
+    if (!marquee) return;
+
+    // Let the DOM render the cards before measuring
+    const timeout = setTimeout(() => {
       const marqueeWidth = marquee.scrollWidth / 2;
-      const animation = gsap.to(marquee, {
+      if (marqueeWidth === 0) return;
+
+      // Kill any existing animation before creating a new one
+      if (marqueeAnimRef.current) {
+        marqueeAnimRef.current.kill();
+      }
+
+      // Reset position
+      gsap.set(marquee, { x: 0 });
+
+      const anim = gsap.to(marquee, {
         x: -marqueeWidth,
-        duration: 30,
+        duration: 35,
         repeat: -1,
         ease: "linear",
-        pauseOnBlur: true,
       });
 
-      // Smooth stop/start on hover
-      marquee.addEventListener("mouseenter", () => gsap.to(animation, { timeScale: 0, duration: 0.5, ease: "power2.out" }));
-      marquee.addEventListener("mouseleave", () => gsap.to(animation, { timeScale: 1, duration: 0.5, ease: "power2.in" }));
-    }
-  }, { scope: container });
+      marqueeAnimRef.current = anim;
+
+      // Hover on the strip container: pause all cards
+      const onEnter = () => gsap.to(anim, { timeScale: 0, duration: 0.4, ease: "power2.out" });
+      const onLeave = () => gsap.to(anim, { timeScale: 1, duration: 0.4, ease: "power2.in" });
+
+      marquee.addEventListener("mouseenter", onEnter);
+      marquee.addEventListener("mouseleave", onLeave);
+
+      // Cleanup on unmount
+      return () => {
+        anim.kill();
+        marquee.removeEventListener("mouseenter", onEnter);
+        marquee.removeEventListener("mouseleave", onLeave);
+      };
+    }, 100);
+
+    return () => clearTimeout(timeout);
+  }, [dbReviews]);
 
   const paginate = (pageNumber: number) => {
     setCurrentPage(pageNumber);
@@ -236,8 +275,8 @@ export default function Portfolio() {
             ))}
           </div>
 
-          {/* Pagination UI */}
-          {totalPages > 1 && (
+          {/* Pagination UI - only show on full portfolio page */}
+          {!isLimited && totalPages > 1 && (
             <div className="flex justify-center items-center gap-4 mb-12">
               <button
                 onClick={() => paginate(Math.max(1, currentPage - 1))}
@@ -272,14 +311,29 @@ export default function Portfolio() {
             </div>
           )}
 
-          <div className="flex justify-center">
-            <Link
-              href="/contact"
-              className="px-8 py-3 bg-[#FFC107] text-black rounded-lg text-sm font-semibold hover:bg-[#FFB300] transition-all flex items-center gap-2"
-            >
-              Start Your Project <ArrowRight size={16} />
-            </Link>
-          </div>
+          {/* View All Projects button - shown only on home page */}
+          {isLimited && dbProjects.length > maxCards && (
+            <div className="flex justify-center mb-12">
+              <Link
+                href="/portfolio"
+                className="group px-10 py-4 bg-transparent border-2 border-[#FFC107] text-[#FFC107] rounded-2xl text-sm font-bold hover:bg-[#FFC107] hover:text-black transition-all duration-300 flex items-center gap-3 uppercase tracking-wider"
+              >
+                View All Projects <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
+              </Link>
+            </div>
+          )}
+
+          {/* CTA - only show on full portfolio page */}
+          {!isLimited && (
+            <div className="flex justify-center">
+              <Link
+                href="/contact"
+                className="px-8 py-3 bg-[#FFC107] text-black rounded-lg text-sm font-semibold hover:bg-[#FFB300] transition-all flex items-center gap-2"
+              >
+                Start Your Project <ArrowRight size={16} />
+              </Link>
+            </div>
+          )}
         </div>
 
         {/* Trusted by Innovators Section */}
@@ -338,7 +392,8 @@ export default function Portfolio() {
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.9, y: 20 }}
               transition={{ type: "spring", damping: 25, stiffness: 300 }}
-              className="relative w-full max-w-4xl max-h-[95vh] bg-[#0F0F0F] border border-white/10 rounded-[2.5rem] overflow-hidden shadow-2xl flex flex-col md:flex-row"
+              className="relative w-full max-w-5xl bg-[#0F0F0F] border border-white/10 rounded-[2.5rem] overflow-hidden shadow-2xl flex flex-col md:flex-row"
+              style={{ minHeight: '80vh', maxHeight: '95vh' }}
             >
               {/* Close Button - Global */}
               <button
@@ -349,7 +404,7 @@ export default function Portfolio() {
               </button>
 
               {/* Left Column: Image Area / Slideshow */}
-              <div className="relative h-72 md:h-auto md:w-[45%] bg-black/40 border-b md:border-b-0 md:border-r border-white/10 overflow-hidden flex items-center justify-center">
+              <div className="relative h-56 md:h-auto md:w-[45%] bg-black/40 border-b md:border-b-0 md:border-r border-white/10 overflow-hidden flex items-center justify-center">
                 <div className="relative h-full w-full">
                   <AnimatePresence mode="wait">
                     {(() => {
@@ -436,33 +491,33 @@ export default function Portfolio() {
               </div>
 
               {/* Right Column: Information */}
-              <div className="p-8 md:p-12 md:w-[55%] flex flex-col justify-center overflow-y-auto">
-                <div className="mb-8">
-                  <div className="text-[#FFC107] text-[10px] font-medium uppercase tracking-[0.4em] mb-3">
+              <div className="p-6 md:p-8 md:w-[55%] flex flex-col overflow-hidden">
+                <div className="mb-4">
+                  <div className="text-[#FFC107] text-[10px] font-medium uppercase tracking-[0.4em] mb-2">
                     {selectedProject.category}
                   </div>
-                  <h2 className="text-2xl md:text-3xl font-semibold text-white tracking-tight">
+                  <h2 className="text-xl md:text-2xl font-semibold text-white tracking-tight">
                     {selectedProject.title}
                   </h2>
                 </div>
 
-                <p className="text-white/60 text-base md:text-lg leading-relaxed mb-10">
+                <p className="text-white/60 text-sm leading-relaxed mb-5 line-clamp-3">
                   {selectedProject.details}
                 </p>
 
-                <div className="space-y-6">
+                <div className="space-y-3">
                   <h4 className="text-[10px] font-bold uppercase tracking-[0.3em] text-[#FFC107]/80">Key Outcomes</h4>
-                  <div className="grid grid-cols-1 gap-4">
+                  <div className="grid grid-cols-2 gap-2">
                     {selectedProject.features.slice(0, 4).map((feature, i) => (
-                      <div key={i} className="flex items-center gap-3 text-white/80">
-                        <CheckCircle2 size={16} className="text-[#FFC107] shrink-0" />
-                        <span className="text-sm font-medium">{feature}</span>
+                      <div key={i} className="flex items-center gap-2 text-white/80">
+                        <CheckCircle2 size={14} className="text-[#FFC107] shrink-0" />
+                        <span className="text-xs font-medium">{feature}</span>
                       </div>
                     ))}
                   </div>
                 </div>
 
-                <div className="mt-12 flex flex-wrap items-center gap-6">
+                <div className="mt-6 flex flex-wrap items-center gap-4">
                   {selectedProject.link && (
                     <a
                       href={selectedProject.link}
@@ -480,7 +535,7 @@ export default function Portfolio() {
 
                   <Link
                     href="/contact"
-                    className="px-8 py-3 bg-[#FFC107] text-black rounded-xl font-bold transition-all text-xs uppercase tracking-wider hover:scale-105 shadow-[0_0_20px_rgba(255,193,7,0.2)] ml-auto"
+                    className="px-6 py-2.5 bg-[#FFC107] text-black rounded-xl font-bold transition-all text-xs uppercase tracking-wider hover:scale-105 shadow-[0_0_20px_rgba(255,193,7,0.2)] ml-auto"
                   >
                     Get Started
                   </Link>

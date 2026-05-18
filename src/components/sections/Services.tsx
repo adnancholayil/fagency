@@ -161,11 +161,12 @@ export default function Services() {
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.9, y: 20 }}
               transition={{ type: "spring", damping: 25, stiffness: 300 }}
-              className="relative w-full max-w-2xl bg-[#0F0F0F] border border-white/10 rounded-[2rem] overflow-hidden shadow-2xl"
+              className="relative w-full max-w-2xl bg-[#0F0F0F] border border-white/10 rounded-[2rem] overflow-hidden shadow-2xl flex flex-col"
+              style={{ minHeight: '80vh', maxHeight: '95vh' }}
             >
-              {/* Modal Header/Image */}
-              <div className="relative h-32 bg-[#FFC107] flex items-center justify-center">
-                <div className="absolute top-6 right-6 z-10">
+              {/* Fixed Header */}
+              <div className="relative h-28 bg-[#FFC107] flex items-center justify-center flex-shrink-0">
+                <div className="absolute top-5 right-5 z-10">
                   <button
                     onClick={() => setSelectedService(null)}
                     className="w-10 h-10 rounded-full bg-black/20 hover:bg-black/40 text-black flex items-center justify-center transition-colors backdrop-blur-md"
@@ -173,33 +174,33 @@ export default function Services() {
                     <X size={20} />
                   </button>
                 </div>
-                <div className="w-20 h-20 rounded-2xl bg-black flex items-center justify-center text-[#FFC107] shadow-xl border border-white/10">
-                  <selectedService.icon size={40} />
+                <div className="w-16 h-16 rounded-2xl bg-black flex items-center justify-center text-[#FFC107] shadow-xl border border-white/10">
+                  <selectedService.icon size={32} />
                 </div>
               </div>
 
-              {/* Modal Content */}
-              <div className="p-8 md:p-12">
-                <h2 className="text-2xl md:text-3xl font-semibold text-white mb-4">
+              {/* Flexible Content */}
+              <div className="flex-1 flex flex-col p-7 md:p-10 overflow-hidden">
+                <h2 className="text-2xl md:text-3xl font-semibold text-white mb-3">
                   {selectedService.title}
                 </h2>
-                <p className="text-white/60 leading-relaxed mb-8">
+                <p className="text-white/60 leading-relaxed mb-6 text-sm md:text-base">
                   {selectedService.details}
                 </p>
 
-                <div className="space-y-6">
-                  <h4 className="text-xs font-black uppercase tracking-[0.3em] text-[#FFC107]">Key Features</h4>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="flex-1">
+                  <h4 className="text-xs font-black uppercase tracking-[0.3em] text-[#FFC107] mb-4">Key Features</h4>
+                  <div className="grid grid-cols-2 gap-3">
                     {selectedService.features.map((feature, i) => (
                       <div key={i} className="flex items-center gap-3 text-white/80">
-                        <CheckCircle2 size={18} className="text-[#FFC107] shrink-0" />
+                        <CheckCircle2 size={16} className="text-[#FFC107] shrink-0" />
                         <span className="text-sm font-medium">{feature}</span>
                       </div>
                     ))}
                   </div>
                 </div>
 
-                <div className="mt-12 flex justify-end">
+                <div className="mt-auto pt-6 flex justify-end">
                   <button
                     onClick={() => setSelectedService(null)}
                     className="px-8 py-3 bg-[#FFC107] hover:bg-[#FFB300] text-black rounded-xl font-semibold transition-all text-sm"
