@@ -96,7 +96,7 @@ export default function Contact() {
     };
 
     try {
-      const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5002/api";
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL;
       const res = await fetch(`${apiUrl}/enquiries`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -122,7 +122,7 @@ export default function Contact() {
 
         const whatsappUrl = `https://wa.me/917034887478?text=${encodeURIComponent(text)}`;
         window.open(whatsappUrl, '_blank');
-        
+
         // Reset form or show success
         setFormData({ name: "", companyName: "", email: "", phone: "", website: "", message: "" });
         setSelectedServices([]);
@@ -167,8 +167,8 @@ export default function Contact() {
                 type="button"
                 onClick={() => setContactType('personal')}
                 className={`flex-1 py-3 px-4 rounded-lg flex items-center justify-center gap-2 text-sm font-bold transition-all ${contactType === 'personal'
-                    ? 'bg-[#FFC107] text-black shadow-lg'
-                    : 'text-white/50 hover:text-white'
+                  ? 'bg-[#FFC107] text-black shadow-lg'
+                  : 'text-white/50 hover:text-white'
                   }`}
               >
                 <User size={16} /> Personal
@@ -177,8 +177,8 @@ export default function Contact() {
                 type="button"
                 onClick={() => setContactType('company')}
                 className={`flex-1 py-3 px-4 rounded-lg flex items-center justify-center gap-2 text-sm font-bold transition-all ${contactType === 'company'
-                    ? 'bg-[#FFC107] text-black shadow-lg'
-                    : 'text-white/50 hover:text-white'
+                  ? 'bg-[#FFC107] text-black shadow-lg'
+                  : 'text-white/50 hover:text-white'
                   }`}
               >
                 <Building2 size={16} /> Company
@@ -269,8 +269,8 @@ export default function Contact() {
                     type="button"
                     onClick={() => toggleService(service)}
                     className={`px-4 py-2 rounded-full text-sm font-medium border transition-all duration-300 ${selectedServices.includes(service)
-                        ? 'bg-[#FFC107] border-[#FFC107] text-black shadow-[0_0_15px_rgba(255,193,7,0.3)]'
-                        : 'bg-white/5 border-white/10 text-white/60 hover:bg-white/10 hover:text-white'
+                      ? 'bg-[#FFC107] border-[#FFC107] text-black shadow-[0_0_15px_rgba(255,193,7,0.3)]'
+                      : 'bg-white/5 border-white/10 text-white/60 hover:bg-white/10 hover:text-white'
                       }`}
                   >
                     {service}
@@ -289,8 +289,8 @@ export default function Contact() {
                     type="button"
                     onClick={() => setSource(platform)}
                     className={`px-4 py-2 rounded-full text-sm font-medium border transition-all duration-300 ${source === platform
-                        ? 'bg-white text-black border-white'
-                        : 'bg-white/5 border-white/10 text-white/60 hover:bg-white/10 hover:text-white'
+                      ? 'bg-white text-black border-white'
+                      : 'bg-white/5 border-white/10 text-white/60 hover:bg-white/10 hover:text-white'
                       }`}
                   >
                     {platform}

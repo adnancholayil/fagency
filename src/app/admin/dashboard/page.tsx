@@ -2,13 +2,13 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { 
-  LayoutDashboard, 
-  Briefcase, 
-  MessageSquare, 
-  Star, 
-  Settings, 
-  LogOut, 
+import {
+  LayoutDashboard,
+  Briefcase,
+  MessageSquare,
+  Star,
+  Settings,
+  LogOut,
   User,
   TrendingUp,
   Eye,
@@ -26,7 +26,7 @@ import {
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 
-const API_BASE = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5002/api";
+const API_BASE = process.env.NEXT_PUBLIC_API_URL;
 
 export default function DashboardPage() {
   const [user, setUser] = useState<any>(null);
@@ -38,10 +38,10 @@ export default function DashboardPage() {
   const [isLoading, setIsLoading] = useState(true);
   const [isProjectModalOpen, setIsProjectModalOpen] = useState(false);
   const [isReviewModalOpen, setIsReviewModalOpen] = useState(false);
-  
+
   // Form States
   const [newProject, setNewProject] = useState({
-    title: "", category: "Web Development", desc: "", details: "", 
+    title: "", category: "Web Development", desc: "", details: "",
     features: "", link: "", image: ""
   });
   const [newReview, setNewReview] = useState({
@@ -53,7 +53,7 @@ export default function DashboardPage() {
   useEffect(() => {
     const token = localStorage.getItem("fagency_admin_token");
     const userData = localStorage.getItem("fagency_admin_user");
-    
+
     if (!token || !userData) {
       router.push("/admin/login");
     } else {
@@ -171,7 +171,7 @@ export default function DashboardPage() {
   const deleteProject = async (id: string) => {
     const token = localStorage.getItem("fagency_admin_token");
     if (!confirm("Are you sure you want to delete this project?")) return;
-    
+
     try {
       const res = await fetch(`${API_BASE}/projects/${id}`, {
         method: "DELETE",
@@ -189,7 +189,7 @@ export default function DashboardPage() {
   const deleteReview = async (id: string) => {
     const token = localStorage.getItem("fagency_admin_token");
     if (!confirm("Are you sure you want to delete this review?")) return;
-    
+
     try {
       const res = await fetch(`${API_BASE}/reviews/${id}`, {
         method: "DELETE",
@@ -237,11 +237,10 @@ export default function DashboardPage() {
             <button
               key={item.id}
               onClick={() => setActiveTab(item.id)}
-              className={`w-full flex items-center gap-4 px-4 py-3 rounded-xl transition-all ${
-                activeTab === item.id 
-                ? "bg-[#FFC107] text-black font-bold shadow-[0_0_20px_rgba(255,193,7,0.2)]" 
+              className={`w-full flex items-center gap-4 px-4 py-3 rounded-xl transition-all ${activeTab === item.id
+                ? "bg-[#FFC107] text-black font-bold shadow-[0_0_20px_rgba(255,193,7,0.2)]"
                 : "text-white/40 hover:text-white hover:bg-white/5"
-              }`}
+                }`}
             >
               <item.icon size={20} />
               {item.label}
@@ -249,7 +248,7 @@ export default function DashboardPage() {
           ))}
         </nav>
 
-        <button 
+        <button
           onClick={handleLogout}
           className="flex items-center gap-4 px-4 py-3 text-red-400 hover:bg-red-500/10 rounded-xl transition-all mt-auto"
         >
@@ -263,7 +262,7 @@ export default function DashboardPage() {
         {/* Header */}
         <header className="h-20 border-b border-white/10 flex items-center justify-between px-8 md:px-12 bg-[#050505]/80 backdrop-blur-xl sticky top-0 z-50">
           <div className="flex items-center gap-4 lg:hidden">
-             <div className="relative w-24 h-8">
+            <div className="relative w-24 h-8">
               <Image src="/logo.PNG" alt="Logo" fill className="object-contain" />
             </div>
           </div>
@@ -295,7 +294,7 @@ export default function DashboardPage() {
 
         {/* Scrollable Content Area */}
         <div className="flex-1 overflow-y-auto p-8 md:p-12">
-          
+
           {/* OVERVIEW TAB */}
           {activeTab === "overview" && (
             <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
@@ -363,11 +362,10 @@ export default function DashboardPage() {
                             </td>
                             <td className="px-8 py-4 text-white/60 font-medium">{enq.service}</td>
                             <td className="px-8 py-4">
-                              <span className={`px-2 py-0.5 rounded-full text-[8px] font-bold uppercase tracking-wider border ${
-                                enq.status === 'completed' ? 'bg-green-500/10 text-green-500 border-green-500/20' : 
+                              <span className={`px-2 py-0.5 rounded-full text-[8px] font-bold uppercase tracking-wider border ${enq.status === 'completed' ? 'bg-green-500/10 text-green-500 border-green-500/20' :
                                 enq.status === 'pending' ? 'bg-yellow-500/10 text-yellow-500 border-yellow-500/20' :
-                                'bg-blue-500/10 text-blue-500 border-blue-500/20'
-                              }`}>
+                                  'bg-blue-500/10 text-blue-500 border-blue-500/20'
+                                }`}>
                                 {enq.status}
                               </span>
                             </td>
@@ -456,7 +454,7 @@ export default function DashboardPage() {
           {/* ENQUIRIES TAB */}
           {activeTab === "enquiries" && (
             <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
-               <div className="mb-10">
+              <div className="mb-10">
                 <h2 className="text-3xl font-bold">Client Enquiries</h2>
                 <p className="text-white/40 mt-1">Direct inquiries from your website contact form.</p>
               </div>
@@ -488,13 +486,12 @@ export default function DashboardPage() {
                         </td>
                         <td className="px-8 py-8">
                           <div className="relative w-max">
-                            <select 
-                              value={enq.status} 
+                            <select
+                              value={enq.status}
                               onChange={(e) => updateEnquiryStatus(enq._id, e.target.value)}
-                              className={`appearance-none bg-[#050505] border border-white/10 rounded-xl px-4 py-2 text-[10px] font-bold uppercase tracking-widest focus:outline-none focus:border-[#FFC107] cursor-pointer transition-all ${
-                                enq.status === 'completed' ? 'text-green-500 border-green-500/20' : 
+                              className={`appearance-none bg-[#050505] border border-white/10 rounded-xl px-4 py-2 text-[10px] font-bold uppercase tracking-widest focus:outline-none focus:border-[#FFC107] cursor-pointer transition-all ${enq.status === 'completed' ? 'text-green-500 border-green-500/20' :
                                 enq.status === 'pending' ? 'text-yellow-500 border-yellow-500/20' : 'text-blue-500 border-blue-500/20'
-                              }`}
+                                }`}
                             >
                               <option value="pending">Pending</option>
                               <option value="processing">Processing</option>
@@ -518,7 +515,7 @@ export default function DashboardPage() {
           {/* REVIEWS TAB */}
           {activeTab === "reviews" && (
             <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
-               <div className="flex justify-between items-center mb-10">
+              <div className="flex justify-between items-center mb-10">
                 <div>
                   <h2 className="text-3xl font-bold">Client Reviews</h2>
                   <p className="text-white/40 mt-1">Management of testimonials shown on the website.</p>
@@ -527,30 +524,30 @@ export default function DashboardPage() {
                   <Plus size={20} /> New Review
                 </button>
               </div>
-               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                 {reviews.map((rev) => (
-                   <div key={rev._id} className="bg-white/5 border border-white/10 rounded-[2.5rem] p-10 relative group hover:border-[#FFC107]/30 transition-all duration-500">
-                     <button onClick={() => deleteReview(rev._id)} className="absolute top-6 right-6 text-red-500/20 hover:text-red-500 transition-colors opacity-0 group-hover:opacity-100">
-                       <Trash2 size={20} />
-                     </button>
-                     <div className="flex gap-1.5 mb-8">
-                       {[1,2,3,4,5].map(i => (
-                         <Star key={i} size={14} fill={i <= (rev.rating || 5) ? "#FFC107" : "none"} stroke={i <= (rev.rating || 5) ? "#FFC107" : "#333"} />
-                       ))}
-                     </div>
-                     <p className="text-white/80 text-base italic leading-relaxed mb-10 font-medium">&quot;{rev.text}&quot;</p>
-                     <div className="flex items-center gap-4 pt-8 border-t border-white/5">
-                        <div className="w-12 h-12 rounded-full bg-[#FFC107]/10 flex items-center justify-center font-bold text-[#FFC107] text-lg border border-[#FFC107]/20">
-                          {rev.name.charAt(0)}
-                        </div>
-                        <div>
-                          <p className="font-bold text-white text-base">{rev.name}</p>
-                          <p className="text-[10px] text-white/40 uppercase tracking-[0.2em] font-bold mt-0.5">{rev.role || 'Client'}</p>
-                        </div>
-                     </div>
-                   </div>
-                 ))}
-               </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                {reviews.map((rev) => (
+                  <div key={rev._id} className="bg-white/5 border border-white/10 rounded-[2.5rem] p-10 relative group hover:border-[#FFC107]/30 transition-all duration-500">
+                    <button onClick={() => deleteReview(rev._id)} className="absolute top-6 right-6 text-red-500/20 hover:text-red-500 transition-colors opacity-0 group-hover:opacity-100">
+                      <Trash2 size={20} />
+                    </button>
+                    <div className="flex gap-1.5 mb-8">
+                      {[1, 2, 3, 4, 5].map(i => (
+                        <Star key={i} size={14} fill={i <= (rev.rating || 5) ? "#FFC107" : "none"} stroke={i <= (rev.rating || 5) ? "#FFC107" : "#333"} />
+                      ))}
+                    </div>
+                    <p className="text-white/80 text-base italic leading-relaxed mb-10 font-medium">&quot;{rev.text}&quot;</p>
+                    <div className="flex items-center gap-4 pt-8 border-t border-white/5">
+                      <div className="w-12 h-12 rounded-full bg-[#FFC107]/10 flex items-center justify-center font-bold text-[#FFC107] text-lg border border-[#FFC107]/20">
+                        {rev.name.charAt(0)}
+                      </div>
+                      <div>
+                        <p className="font-bold text-white text-base">{rev.name}</p>
+                        <p className="text-[10px] text-white/40 uppercase tracking-[0.2em] font-bold mt-0.5">{rev.role || 'Client'}</p>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
             </div>
           )}
         </div>
@@ -570,11 +567,11 @@ export default function DashboardPage() {
                 <div className="grid grid-cols-2 gap-6">
                   <div className="space-y-2">
                     <label className="text-[10px] font-bold uppercase tracking-widest text-white/40">Title</label>
-                    <input value={newProject.title} onChange={e => setNewProject({...newProject, title: e.target.value})} className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 focus:border-[#FFC107] outline-none" required />
+                    <input value={newProject.title} onChange={e => setNewProject({ ...newProject, title: e.target.value })} className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 focus:border-[#FFC107] outline-none" required />
                   </div>
                   <div className="space-y-2">
                     <label className="text-[10px] font-bold uppercase tracking-widest text-white/40">Category</label>
-                    <select value={newProject.category} onChange={e => setNewProject({...newProject, category: e.target.value})} className="w-full bg-[#050505] text-white border border-white/10 rounded-xl px-4 py-3 focus:border-[#FFC107] outline-none">
+                    <select value={newProject.category} onChange={e => setNewProject({ ...newProject, category: e.target.value })} className="w-full bg-[#050505] text-white border border-white/10 rounded-xl px-4 py-3 focus:border-[#FFC107] outline-none">
                       <option value="Web Development" className="bg-[#050505] text-white">Web Development</option>
                       <option value="App Development" className="bg-[#050505] text-white">App Development</option>
                       <option value="Software Development" className="bg-[#050505] text-white">Software Development</option>
@@ -585,25 +582,25 @@ export default function DashboardPage() {
                 </div>
                 <div className="space-y-2">
                   <label className="text-[10px] font-bold uppercase tracking-widest text-white/40">Short Description</label>
-                  <input value={newProject.desc} onChange={e => setNewProject({...newProject, desc: e.target.value})} className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 focus:border-[#FFC107] outline-none" required />
+                  <input value={newProject.desc} onChange={e => setNewProject({ ...newProject, desc: e.target.value })} className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 focus:border-[#FFC107] outline-none" required />
                 </div>
                 <div className="space-y-2">
                   <label className="text-[10px] font-bold uppercase tracking-widest text-white/40">Full Details</label>
-                  <textarea value={newProject.details} onChange={e => setNewProject({...newProject, details: e.target.value})} className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 focus:border-[#FFC107] outline-none h-24" required />
+                  <textarea value={newProject.details} onChange={e => setNewProject({ ...newProject, details: e.target.value })} className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 focus:border-[#FFC107] outline-none h-24" required />
                 </div>
                 <div className="grid grid-cols-2 gap-6">
-                   <div className="space-y-2">
+                  <div className="space-y-2">
                     <label className="text-[10px] font-bold uppercase tracking-widest text-white/40">Image URL</label>
-                    <input value={newProject.image} onChange={e => setNewProject({...newProject, image: e.target.value})} className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 focus:border-[#FFC107] outline-none" placeholder="/portfolio/img.jpg" />
+                    <input value={newProject.image} onChange={e => setNewProject({ ...newProject, image: e.target.value })} className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 focus:border-[#FFC107] outline-none" placeholder="/portfolio/img.jpg" />
                   </div>
                   <div className="space-y-2">
                     <label className="text-[10px] font-bold uppercase tracking-widest text-white/40">Project Link</label>
-                    <input value={newProject.link} onChange={e => setNewProject({...newProject, link: e.target.value})} className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 focus:border-[#FFC107] outline-none" placeholder="https://..." />
+                    <input value={newProject.link} onChange={e => setNewProject({ ...newProject, link: e.target.value })} className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 focus:border-[#FFC107] outline-none" placeholder="https://..." />
                   </div>
                 </div>
                 <div className="space-y-2">
                   <label className="text-[10px] font-bold uppercase tracking-widest text-white/40">Features (Comma separated)</label>
-                  <input value={newProject.features} onChange={e => setNewProject({...newProject, features: e.target.value})} className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 focus:border-[#FFC107] outline-none" placeholder="React, GSAP, Node.js" />
+                  <input value={newProject.features} onChange={e => setNewProject({ ...newProject, features: e.target.value })} className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 focus:border-[#FFC107] outline-none" placeholder="React, GSAP, Node.js" />
                 </div>
                 <button type="submit" className="w-full bg-[#FFC107] text-black font-bold py-4 rounded-2xl mt-6 hover:bg-[#FFD54F] transition-all">Create Project</button>
               </form>
@@ -622,19 +619,19 @@ export default function DashboardPage() {
               <form onSubmit={handleAddReview} className="space-y-6">
                 <div className="space-y-2">
                   <label className="text-[10px] font-bold uppercase tracking-widest text-white/40">Client Name</label>
-                  <input value={newReview.name} onChange={e => setNewReview({...newReview, name: e.target.value})} className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 focus:border-[#FFC107] outline-none" required />
+                  <input value={newReview.name} onChange={e => setNewReview({ ...newReview, name: e.target.value })} className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 focus:border-[#FFC107] outline-none" required />
                 </div>
                 <div className="space-y-2">
                   <label className="text-[10px] font-bold uppercase tracking-widest text-white/40">Role / Company</label>
-                  <input value={newReview.role} onChange={e => setNewReview({...newReview, role: e.target.value})} className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 focus:border-[#FFC107] outline-none" required />
+                  <input value={newReview.role} onChange={e => setNewReview({ ...newReview, role: e.target.value })} className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 focus:border-[#FFC107] outline-none" required />
                 </div>
                 <div className="space-y-2">
                   <label className="text-[10px] font-bold uppercase tracking-widest text-white/40">Review Text</label>
-                  <textarea value={newReview.text} onChange={e => setNewReview({...newReview, text: e.target.value})} className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 focus:border-[#FFC107] outline-none h-32" required />
+                  <textarea value={newReview.text} onChange={e => setNewReview({ ...newReview, text: e.target.value })} className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 focus:border-[#FFC107] outline-none h-32" required />
                 </div>
                 <div className="space-y-2">
                   <label className="text-[10px] font-bold uppercase tracking-widest text-white/40">Rating (1-5)</label>
-                  <input type="number" min="1" max="5" value={newReview.rating} onChange={e => setNewReview({...newReview, rating: parseInt(e.target.value)})} className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 focus:border-[#FFC107] outline-none" required />
+                  <input type="number" min="1" max="5" value={newReview.rating} onChange={e => setNewReview({ ...newReview, rating: parseInt(e.target.value) })} className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 focus:border-[#FFC107] outline-none" required />
                 </div>
                 <button type="submit" className="w-full bg-[#FFC107] text-black font-bold py-4 rounded-2xl mt-6">Publish Review</button>
               </form>

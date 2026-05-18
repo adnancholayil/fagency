@@ -95,14 +95,14 @@ export default function Portfolio() {
   React.useEffect(() => {
     const fetchData = async () => {
       try {
-        const API = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5002/api";
+        const API = process.env.NEXT_PUBLIC_API_URL;
         const [projRes, revRes] = await Promise.all([
           fetch(`${API}/projects`),
           fetch(`${API}/reviews`)
         ]);
         const projData = await projRes.json();
         const revData = await revRes.json();
-        
+
         // If DB is empty, fallback to local data or show empty
         setDbProjects(projData.length > 0 ? projData : projects);
         setDbReviews(revData.length > 0 ? revData : testimonials);
