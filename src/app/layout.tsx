@@ -21,15 +21,25 @@ export const metadata: Metadata = {
   },
   description: "Fagency is a professional digital agency based in Malappuram, Kerala with 1+ years of experience. We specialize in Web Development, App Development, Graphic Design, Media Production & Digital Marketing.",
   keywords: [
-    "Fagency", "digital agency Malappuram", "web development Kerala",
-    "app development Malappuram", "software development Kerala",
-    "graphic design agency", "digital marketing Malappuram",
-    "media production Kerala", "freelancer team Kerala",
-    "website design Malappuram", "Next.js development India"
+    "Fagency", "fagency.it",
+    "digital agency Malappuram", "digital agency Kerala",
+    "web development Kerala", "web development Malappuram",
+    "app development Malappuram", "app development Kerala",
+    "software development Kerala", "software company Malappuram",
+    "graphic design agency Kerala", "graphic design Malappuram",
+    "digital marketing Malappuram", "digital marketing Kerala",
+    "media production Kerala", "video production Malappuram",
+    "website design Malappuram", "website design Kerala",
+    "Next.js development India", "React development Kerala",
+    "UI UX design Kerala", "branding agency Malappuram",
+    "SEO agency Kerala", "social media marketing Malappuram",
+    "freelancer team Kerala", "IT company Malappuram"
   ],
   authors: [{ name: "Fagency Team", url: "https://fagency.vercel.app" }],
   creator: "Fagency",
   publisher: "Fagency",
+  category: "Technology",
+  classification: "Digital Agency",
   robots: {
     index: true,
     follow: true,
@@ -40,6 +50,9 @@ export const metadata: Metadata = {
       "max-image-preview": "large",
       "max-snippet": -1,
     },
+  },
+  verification: {
+    google: "6MeqMQsi4uE5B0vbmbnW8GM0GjQvMwLqgSDpvwTTopw",
   },
   openGraph: {
     title: "Fagency | Digital Agency in Malappuram, Kerala",
@@ -53,7 +66,7 @@ export const metadata: Metadata = {
         url: "/og-image.jpg",
         width: 1200,
         height: 630,
-        alt: "Fagency - Digital Agency in Malappuram",
+        alt: "Fagency - Digital Agency in Malappuram, Kerala",
       }
     ],
   },
@@ -71,6 +84,12 @@ export const metadata: Metadata = {
     icon: "/logo.PNG",
     shortcut: "/logo.PNG",
     apple: "/logo.PNG",
+  },
+  other: {
+    "geo.region": "IN-KL",
+    "geo.placename": "Malappuram, Kerala",
+    "geo.position": "11.0522;76.0833",
+    "ICBM": "11.0522, 76.0833",
   },
 };
 

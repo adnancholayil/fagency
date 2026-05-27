@@ -7,9 +7,27 @@ import Experience from "@/components/sections/Experience";
 import PageHero from "@/components/sections/PageHero";
 
 export const metadata: Metadata = {
-  title: "About Us",
-  description: "Learn about Fagency — a team of 5 specialized freelancers based in Malappuram, Kerala. We deliver expert web, app, graphic design, and digital marketing solutions.",
+  title: "About Us | Who We Are",
+  description: "Fagency is a team of 5 specialized freelancers based in Malappuram, Kerala with 1+ years of experience. We deliver expert web development, app development, graphic design, media production & digital marketing solutions.",
+  keywords: [
+    "about Fagency", "Fagency team", "digital agency team Kerala",
+    "freelancer team Malappuram", "web developers Kerala",
+    "app developers Malappuram", "design team Kerala",
+    "IT professionals Malappuram", "digital experts Kerala"
+  ],
   alternates: { canonical: "https://fagency.vercel.app/about" },
+  openGraph: {
+    title: "About Fagency | Digital Agency Team in Malappuram, Kerala",
+    description: "Meet the Fagency team — 5 specialized freelancers delivering expert web, app, graphic design & digital marketing solutions from Malappuram, Kerala.",
+    url: "https://fagency.vercel.app/about",
+    images: [{ url: "/og-image.jpg", width: 1200, height: 630, alt: "Fagency Team" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "About Fagency | Digital Agency Team in Malappuram",
+    description: "Meet the Fagency team — 5 specialized freelancers delivering expert digital solutions.",
+    images: ["/og-image.jpg"],
+  },
 };
 
 const aboutFaqs = [

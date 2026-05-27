@@ -7,9 +7,28 @@ import OfficeHours from "@/components/sections/OfficeHours";
 import PageHero from "@/components/sections/PageHero";
 
 export const metadata: Metadata = {
-  title: "Contact Us",
-  description: "Get in touch with Fagency. We are a digital agency based in Malappuram, Kerala. Contact us for web development, app development, design, or any digital solution.",
+  title: "Contact Us | Get a Free Quote",
+  description: "Contact Fagency — a digital agency in Malappuram, Kerala. Get a free consultation for web development, app development, graphic design, or any digital solution. We respond within 24 hours.",
+  keywords: [
+    "contact Fagency", "hire digital agency Kerala",
+    "web development quote Malappuram", "app development quote Kerala",
+    "digital agency contact Malappuram", "free consultation Kerala",
+    "hire web developer Kerala", "hire designer Malappuram",
+    "get quote digital marketing Kerala", "IT services contact Malappuram"
+  ],
   alternates: { canonical: "https://fagency.vercel.app/contact" },
+  openGraph: {
+    title: "Contact Fagency | Free Quote & Consultation - Malappuram",
+    description: "Get in touch with Fagency for a free consultation. Web, app, design & digital marketing services in Malappuram, Kerala. Fast 24-hour response.",
+    url: "https://fagency.vercel.app/contact",
+    images: [{ url: "/og-image.jpg", width: 1200, height: 630, alt: "Contact Fagency" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Contact Fagency | Free Consultation - Kerala",
+    description: "Get a free consultation from Fagency, digital agency in Malappuram, Kerala.",
+    images: ["/og-image.jpg"],
+  },
 };
 
 const contactFaqs = [

@@ -43,10 +43,12 @@ export default function DashboardPage() {
   // Form States
   const [newProject, setNewProject] = useState({
     title: "", category: "Web Development", desc: "", details: "",
-    features: "", link: "", image: ""
+    features: "", link: "", image: "", videocode: ""
   });
   const [imageFile, setImageFile] = useState<File | null>(null);
   const [imagePreview, setImagePreview] = useState<string | null>(null);
+  const [videoFile, setVideoFile] = useState<File | null>(null);
+  const [videoPreview, setVideoPreview] = useState<string | null>(null);
   const [isUploading, setIsUploading] = useState(false);
   const [newReview, setNewReview] = useState({
     name: "", role: "", text: "", rating: 5
@@ -117,11 +119,19 @@ export default function DashboardPage() {
     reader.readAsDataURL(file);
   };
 
+  const handleVideoSelect = (file: File) => {
+    setVideoFile(file);
+    const reader = new FileReader();
+    reader.onloadend = () => setVideoPreview(reader.result as string);
+    reader.readAsDataURL(file);
+  };
+
   const handleAddProject = async (e: React.FormEvent) => {
     e.preventDefault();
     const token = localStorage.getItem("fagency_admin_token");
     try {
       let imageUrl = newProject.image;
+      let videoUrl = "";
 
       // Upload image file if one was selected
       if (imageFile) {
@@ -133,9 +143,37 @@ export default function DashboardPage() {
           headers: { "Authorization": `Bearer ${token}` },
           body: formData,
         });
-        const uploadData = await uploadRes.json();
-        if (!uploadRes.ok) throw new Error(uploadData.message || "Upload failed");
+        const uploadText = await uploadRes.text();
+        let uploadData;
+        try {
+          uploadData = JSON.parse(uploadText);
+        } catch (e) {
+          throw new Error(`Server error (${uploadRes.status}). The image file might be too large.`);
+        }
+        if (!uploadRes.ok) throw new Error(uploadData?.message || "Upload failed");
         imageUrl = uploadData.url;
+        setIsUploading(false);
+      }
+
+      // Upload video file if one was selected
+      if (videoFile) {
+        setIsUploading(true);
+        const formData = new FormData();
+        formData.append("image", videoFile); // Server likely expects the field name to be 'image'
+        const uploadRes = await fetch(`${API_BASE}/upload`, {
+          method: "POST",
+          headers: { "Authorization": `Bearer ${token}` },
+          body: formData,
+        });
+        const uploadText = await uploadRes.text();
+        let uploadData;
+        try {
+          uploadData = JSON.parse(uploadText);
+        } catch (e) {
+          throw new Error(`Server error (${uploadRes.status}). The video file is likely too large for the server to process. Please use the 'Video Embed Code / Link' fallback instead.`);
+        }
+        if (!uploadRes.ok) throw new Error(uploadData?.message || "Video upload failed");
+        videoUrl = uploadData.url;
         setIsUploading(false);
       }
 
@@ -148,18 +186,22 @@ export default function DashboardPage() {
         body: JSON.stringify({
           ...newProject,
           image: imageUrl,
+          video: videoUrl,
           features: newProject.features.split(",").map(f => f.trim())
         })
       });
       if (res.ok) {
         setIsProjectModalOpen(false);
-        setNewProject({ title: "", category: "Web Development", desc: "", details: "", features: "", link: "", image: "" });
+        setNewProject({ title: "", category: "Web Development", desc: "", details: "", features: "", link: "", image: "", videocode: "" });
         setImageFile(null);
         setImagePreview(null);
+        setVideoFile(null);
+        setVideoPreview(null);
         fetchAllData(token!);
       }
-    } catch (err) {
+    } catch (err: any) {
       console.error("Error adding project:", err);
+      alert("Upload failed. If the video is too large, it might be blocked by the server. Please use the 'Video Embed Code' fallback instead. Details: " + err.message);
       setIsUploading(false);
     }
   };
@@ -599,8 +641,8 @@ export default function DashboardPage() {
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.95 }}
-              className="relative w-full max-w-2xl bg-[#0F0F0F] border border-white/10 rounded-[2.5rem] shadow-2xl flex flex-col overflow-hidden"
-              style={{ minHeight: '80vh', maxHeight: '95vh' }}
+              className="relative w-full max-w-4xl bg-[#0F0F0F] border border-white/10 rounded-[2.5rem] shadow-2xl flex flex-col overflow-hidden"
+              style={{ maxHeight: '95vh' }}
             >
               {/* Header */}
               <div className="flex justify-between items-center px-8 pt-7 pb-5 flex-shrink-0">
@@ -609,7 +651,7 @@ export default function DashboardPage() {
               </div>
 
               {/* Form fills remaining space */}
-              <form onSubmit={handleAddProject} className="flex-1 flex flex-col px-8 pb-7 gap-4 overflow-hidden">
+              <form onSubmit={handleAddProject} className="flex-1 flex flex-col px-8 pb-7 gap-3 overflow-hidden">
                 {/* Row 1: Title + Category */}
                 <div className="grid grid-cols-2 gap-4">
                   <div className="space-y-1.5">
@@ -632,49 +674,90 @@ export default function DashboardPage() {
                 <div className="grid grid-cols-2 gap-4">
                   <div className="space-y-1.5">
                     <label className="text-[10px] font-bold uppercase tracking-widest text-white/40">Short Description</label>
-                    <textarea value={newProject.desc} onChange={e => setNewProject({ ...newProject, desc: e.target.value })} className="w-full bg-white/5 border border-white/10 rounded-xl px-3 py-2.5 text-sm focus:border-[#FFC107] outline-none resize-none h-[72px]" required />
+                    <textarea value={newProject.desc} onChange={e => setNewProject({ ...newProject, desc: e.target.value })} className="w-full bg-white/5 border border-white/10 rounded-xl px-3 py-2.5 text-sm focus:border-[#FFC107] outline-none resize-none h-[56px]" required />
                   </div>
                   <div className="space-y-1.5">
                     <label className="text-[10px] font-bold uppercase tracking-widest text-white/40">Full Details</label>
-                    <textarea value={newProject.details} onChange={e => setNewProject({ ...newProject, details: e.target.value })} className="w-full bg-white/5 border border-white/10 rounded-xl px-3 py-2.5 text-sm focus:border-[#FFC107] outline-none resize-none h-[72px]" required />
+                    <textarea value={newProject.details} onChange={e => setNewProject({ ...newProject, details: e.target.value })} className="w-full bg-white/5 border border-white/10 rounded-xl px-3 py-2.5 text-sm focus:border-[#FFC107] outline-none resize-none h-[56px]" required />
                   </div>
                 </div>
 
-                {/* Image Upload */}
-                <div className="space-y-1.5">
-                  <label className="text-[10px] font-bold uppercase tracking-widest text-white/40">Project Image</label>
-                  <label
-                    htmlFor="project-image-upload"
-                    onDragOver={e => e.preventDefault()}
-                    onDrop={e => { e.preventDefault(); const f = e.dataTransfer.files[0]; if (f) handleImageSelect(f); }}
-                    className="relative flex flex-col items-center justify-center w-full h-28 border-2 border-dashed border-white/10 rounded-2xl cursor-pointer hover:border-[#FFC107]/50 transition-all overflow-hidden group"
-                  >
-                    {imagePreview ? (
-                      <>
-                        <img src={imagePreview} alt="Preview" className="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:opacity-80 transition-all" />
-                        <div className="relative z-10 bg-black/60 px-3 py-1 rounded-lg text-xs font-bold text-white backdrop-blur-sm">Click to change</div>
-                      </>
-                    ) : (
-                      <div className="flex flex-col items-center gap-1.5 text-white/30 group-hover:text-[#FFC107]/60 transition-colors">
-                        <Upload size={22} />
-                        <span className="text-xs font-bold uppercase tracking-wider">Click or drag image here</span>
-                        <span className="text-[10px] text-white/20">JPG, PNG, WEBP · Max 10MB</span>
-                      </div>
-                    )}
-                    <input id="project-image-upload" type="file" accept="image/*" className="hidden" onChange={e => { const f = e.target.files?.[0]; if (f) handleImageSelect(f); }} />
-                  </label>
-                </div>
-
-                {/* Row 3: Link + Features */}
+                {/* Row 3: Image + Video Upload Grouped */}
                 <div className="grid grid-cols-2 gap-4">
+                  {/* Image Upload */}
                   <div className="space-y-1.5">
-                    <label className="text-[10px] font-bold uppercase tracking-widest text-white/40">Project Link</label>
-                    <input value={newProject.link} onChange={e => setNewProject({ ...newProject, link: e.target.value })} className="w-full bg-white/5 border border-white/10 rounded-xl px-3 py-2.5 text-sm focus:border-[#FFC107] outline-none" placeholder="https://..." />
+                    <label className="text-[10px] font-bold uppercase tracking-widest text-white/40">Project Image</label>
+                    <label
+                      htmlFor="project-image-upload"
+                      onDragOver={e => e.preventDefault()}
+                      onDrop={e => { e.preventDefault(); const f = e.dataTransfer.files[0]; if (f) handleImageSelect(f); }}
+                      className="relative flex flex-col items-center justify-center w-full h-24 border-2 border-dashed border-white/10 rounded-2xl cursor-pointer hover:border-[#FFC107]/50 transition-all overflow-hidden group"
+                    >
+                      {imagePreview ? (
+                        <>
+                          <img src={imagePreview} alt="Preview" className="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:opacity-80 transition-all" />
+                          <div className="relative z-10 bg-black/60 px-3 py-1 rounded-lg text-xs font-bold text-white backdrop-blur-sm">Click to change</div>
+                        </>
+                      ) : (
+                        <div className="flex flex-col items-center gap-1.5 text-white/30 group-hover:text-[#FFC107]/60 transition-colors">
+                          <Upload size={20} />
+                          <span className="text-[10px] font-bold uppercase tracking-wider">Click or drag image</span>
+                          <span className="text-[10px] text-white/20">Max 10MB</span>
+                        </div>
+                      )}
+                      <input id="project-image-upload" type="file" accept="image/*" className="hidden" onChange={e => { const f = e.target.files?.[0]; if (f) handleImageSelect(f); }} />
+                    </label>
                   </div>
+
+                  {/* Video Upload */}
                   <div className="space-y-1.5">
-                    <label className="text-[10px] font-bold uppercase tracking-widest text-white/40">Features (comma separated)</label>
-                    <input value={newProject.features} onChange={e => setNewProject({ ...newProject, features: e.target.value })} className="w-full bg-white/5 border border-white/10 rounded-xl px-3 py-2.5 text-sm focus:border-[#FFC107] outline-none" placeholder="React, GSAP, Node.js" />
+                    <label className="text-[10px] font-bold uppercase tracking-widest text-white/40">Project Video (Max 50MB)</label>
+                    <label
+                      htmlFor="project-video-upload"
+                      onDragOver={e => e.preventDefault()}
+                      onDrop={e => { 
+                        e.preventDefault(); 
+                        const f = e.dataTransfer.files[0]; 
+                        if (f) {
+                          if (f.size > 50 * 1024 * 1024) {
+                             alert("Video size must be less than 50MB");
+                             return;
+                          }
+                          handleVideoSelect(f); 
+                        }
+                      }}
+                      className="relative flex flex-col items-center justify-center w-full h-24 border-2 border-dashed border-white/10 rounded-2xl cursor-pointer hover:border-[#FFC107]/50 transition-all overflow-hidden group"
+                    >
+                      {videoPreview ? (
+                        <>
+                          <video src={videoPreview} className="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:opacity-80 transition-all" muted loop playsInline />
+                          <div className="relative z-10 bg-black/60 px-3 py-1 rounded-lg text-xs font-bold text-white backdrop-blur-sm">Click to change</div>
+                        </>
+                      ) : (
+                        <div className="flex flex-col items-center gap-1.5 text-white/30 group-hover:text-[#FFC107]/60 transition-colors">
+                          <Upload size={20} />
+                          <span className="text-[10px] font-bold uppercase tracking-wider">Click or drag video</span>
+                          <span className="text-[10px] text-white/20">Max 50MB</span>
+                        </div>
+                      )}
+                      <input id="project-video-upload" type="file" accept="video/*" className="hidden" onChange={e => { 
+                        const f = e.target.files?.[0]; 
+                        if (f) {
+                          if (f.size > 50 * 1024 * 1024) {
+                             alert("Video size must be less than 50MB");
+                             return;
+                          }
+                          handleVideoSelect(f); 
+                        }
+                      }} />
+                    </label>
                   </div>
+                </div>
+
+                {/* Videocode Input */}
+                <div className="space-y-1.5">
+                  <label className="text-[10px] font-bold uppercase tracking-widest text-white/40">Or Video Embed Code / Link (Fallback)</label>
+                  <input value={newProject.videocode} onChange={e => setNewProject({ ...newProject, videocode: e.target.value })} className="w-full bg-white/5 border border-white/10 rounded-xl px-3 py-2.5 text-sm focus:border-[#FFC107] outline-none" placeholder="<iframe... or YouTube URL" />
                 </div>
 
                 {/* Submit - pinned to bottom */}

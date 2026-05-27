@@ -7,9 +7,28 @@ import CallToAction from "@/components/sections/CallToAction";
 import PageHero from "@/components/sections/PageHero";
 
 export const metadata: Metadata = {
-  title: "Portfolio",
-  description: "Explore Fagency's portfolio of web apps, mobile apps, graphic design, and media production projects. See how we deliver premium digital experiences.",
+  title: "Portfolio | Our Work & Projects",
+  description: "Explore Fagency's portfolio of web apps, mobile apps, graphic design, and media production projects from Malappuram, Kerala. See how we deliver premium digital experiences.",
+  keywords: [
+    "Fagency portfolio", "web design portfolio Kerala",
+    "app development projects Malappuram", "graphic design portfolio Kerala",
+    "digital agency projects Kerala", "video production portfolio",
+    "branding portfolio Malappuram", "UI UX projects Kerala",
+    "website showcase Kerala", "software portfolio India"
+  ],
   alternates: { canonical: "https://fagency.vercel.app/portfolio" },
+  openGraph: {
+    title: "Portfolio | Web, App & Design Work - Fagency",
+    description: "See our best web, app, graphic design & media projects. Premium digital experiences crafted in Malappuram, Kerala.",
+    url: "https://fagency.vercel.app/portfolio",
+    images: [{ url: "/og-image.jpg", width: 1200, height: 630, alt: "Fagency Portfolio" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Portfolio | Our Best Work - Fagency Kerala",
+    description: "Explore our best web, app & design projects from Malappuram, Kerala.",
+    images: ["/og-image.jpg"],
+  },
 };
 
 const portfolioFaqs = [

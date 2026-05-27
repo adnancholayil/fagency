@@ -6,9 +6,29 @@ import WhyChooseUs from "@/components/sections/WhyChooseUs";
 import PageHero from "@/components/sections/PageHero";
 
 export const metadata: Metadata = {
-  title: "Our Services",
-  description: "Fagency offers Web Development, App Development, Software Development, Graphic Design, Media Production & Digital Marketing in Malappuram, Kerala.",
+  title: "Our Services | Web, App, Design & Marketing",
+  description: "Fagency offers professional Web Development, App Development, Software Development, Graphic Design, Media Production & Digital Marketing in Malappuram, Kerala. Get a free quote today.",
+  keywords: [
+    "web development services Kerala", "app development services Malappuram",
+    "software development Malappuram", "graphic design services Kerala",
+    "digital marketing services Malappuram", "media production Kerala",
+    "UI UX design Kerala", "branding services Malappuram",
+    "SEO services Kerala", "social media management Malappuram",
+    "video editing Kerala", "Next.js development Kerala"
+  ],
   alternates: { canonical: "https://fagency.vercel.app/services" },
+  openGraph: {
+    title: "Services | Web, App, Design & Digital Marketing - Fagency",
+    description: "Professional web development, app development, graphic design, media production & digital marketing services in Malappuram, Kerala.",
+    url: "https://fagency.vercel.app/services",
+    images: [{ url: "/og-image.jpg", width: 1200, height: 630, alt: "Fagency Services" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Services | Web, App & Design - Fagency Kerala",
+    description: "Expert digital services in web, app, design & marketing from Malappuram, Kerala.",
+    images: ["/og-image.jpg"],
+  },
 };
 
 const serviceFaqs = [
